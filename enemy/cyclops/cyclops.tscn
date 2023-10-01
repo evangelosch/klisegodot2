@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2tnsn6yqipjp"]
+
+[ext_resource type="Texture2D" uid="uid://djsipby6vkt7m" path="res://enemy/cyclops/art/tile_0109.png" id="1_hvtvf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e6hg8"]
+radius = 6.08276
+
+[node name="Cyclops" type="CharacterBody2D"]
+scale = Vector2(4, 4)
+
+[node name="CyclopsSprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_hvtvf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_e6hg8")
