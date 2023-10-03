@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8rh8vdubl3uh"
-path="res://.godot/imported/idle_right.png-413884c1eb1b8de60c08d51e54f4181d.ctex"
+uid="uid://djsipby6vkt7m"
+path="res://.godot/imported/tile_0109.png-0a0f15cb9f48d86684a49afddccb2e2e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/art/idle_right.png"
-dest_files=["res://.godot/imported/idle_right.png-413884c1eb1b8de60c08d51e54f4181d.ctex"]
+source_file="res://Scenes/Enemy/Cyclops/Art/tile_0109.png"
+dest_files=["res://.godot/imported/tile_0109.png-0a0f15cb9f48d86684a49afddccb2e2e.ctex"]
 
 [params]
 

@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://bmsqjfxc4h4x"]
+
+[ext_resource type="PackedScene" uid="uid://bh2g07jdr1y7e" path="res://Scenes/Player/Player.tscn" id="1_sfu5f"]
+[ext_resource type="PackedScene" uid="uid://bav1fnp7nnrtb" path="res://Scenes/Enemy/Cyclops/Cyclops.tscn" id="2_3r00v"]
+[ext_resource type="PackedScene" uid="uid://bqy4l2yuudcl2" path="res://Scenes/Enemy/Slime/Slime.tscn" id="3_8crmh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mj0td"]
+size = Vector2(28, 714)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nxnds"]
+size = Vector2(30, 709)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b4rv7"]
+size = Vector2(1277, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sh6dn"]
+size = Vector2(1280, 15)
+
+[node name="Main" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 356)
+limit_left = -5
+limit_top = 0
+limit_right = 1280
+limit_bottom = 715
+limit_smoothed = true
+editor_draw_limits = true
+
+[node name="ScreenBoundaries" type="StaticBody2D" parent="Camera2D"]
+
+[node name="RightWallCollision" type="CollisionShape2D" parent="Camera2D/ScreenBoundaries"]
+position = Vector2(655, -1)
+shape = SubResource("RectangleShape2D_mj0td")
+
+[node name="LeftWallCollision" type="CollisionShape2D" parent="Camera2D/ScreenBoundaries"]
+position = Vector2(-656, 3.5)
+shape = SubResource("RectangleShape2D_nxnds")
+
+[node name="UpWallCollision" type="CollisionShape2D" parent="Camera2D/ScreenBoundaries"]
+position = Vector2(-0.5, -377)
+shape = SubResource("RectangleShape2D_b4rv7")
+
+[node name="DownWallCollision" type="CollisionShape2D" parent="Camera2D/ScreenBoundaries"]
+position = Vector2(0, 369)
+shape = SubResource("RectangleShape2D_sh6dn")
+
+[node name="Player" parent="." instance=ExtResource("1_sfu5f")]
+position = Vector2(428, 547)
+
+[node name="Cyclops" parent="." instance=ExtResource("2_3r00v")]
+position = Vector2(907, 364)
+
+[node name="Slime" parent="." instance=ExtResource("3_8crmh")]
+position = Vector2(246, 170)

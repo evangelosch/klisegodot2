@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bj3ew2f1m5kp7"
-path="res://.godot/imported/parry_right.png-f98342c2fe34bcaa4a023f344fb92024.ctex"
+uid="uid://ih7ktua64ab7"
+path="res://.godot/imported/slime.png-b274e1ec0d75b570b2e955acae561319.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/art/parry_right.png"
-dest_files=["res://.godot/imported/parry_right.png-f98342c2fe34bcaa4a023f344fb92024.ctex"]
+source_file="res://Scenes/Enemy/Slime/Art/slime.png"
+dest_files=["res://.godot/imported/slime.png-b274e1ec0d75b570b2e955acae561319.ctex"]
 
 [params]
 

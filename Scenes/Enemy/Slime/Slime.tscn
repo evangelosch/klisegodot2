@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://edih5jc5xj4y"]
+[gd_scene load_steps=3 format=3 uid="uid://bqy4l2yuudcl2"]
 
-[ext_resource type="Texture2D" uid="uid://ih7ktua64ab7" path="res://enemy/slime/art/slime.png" id="1_u5wjx"]
+[ext_resource type="Texture2D" uid="uid://ih7ktua64ab7" path="res://Scenes/Enemy/Slime/Art/slime.png" id="1_c7tes"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6txts"]
 radius = 6.0
@@ -9,7 +9,7 @@ radius = 6.0
 scale = Vector2(4, 4)
 
 [node name="SlimeSprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_u5wjx")
+texture = ExtResource("1_c7tes")
 hframes = 7
 vframes = 4
 
