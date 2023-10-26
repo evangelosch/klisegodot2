@@ -1,25 +1,16 @@
 class_name RunState
 extends State
 
-
-var player
-#@onready var animation_player: AnimationPlayer
-@onready var animation_tree: AnimationTree
 var state_machine
+var player
+
 
 func _ready():
 	player = get_parent().get_parent()
-	animation_tree = player.get_node("AnimationTree")
-	#animation_tree.animation_finished.connect(on_AttackAnimation_finished)
-	state_machine = animation_tree.get("parameters/playback")
-#	state_machine.travel("attack_right")
 
 
 func _physics_process(delta):
-	state_machine.travel("run_right")
-	player.get_input()
-	player.move_and_slide()
-
-
-#func on_AttackAnimation_finished(animation_name: String):
-#	player.state.change_state("idle_right")
+	if player.input_direction != Vector2.ZERO:
+		player.velocity = player.input_direction * player.speed
+		player.state_machine.travel("run_right")
+		player.move_and_slide()

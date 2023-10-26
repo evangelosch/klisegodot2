@@ -365,8 +365,7 @@ metadata/_edit_vertical_guides_ = []
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -17.6667)
 sprite_frames = SubResource("SpriteFrames_8ntwr")
-animation = &"run_right"
-frame = 4
+animation = &"attack_right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8.66667)
@@ -378,7 +377,7 @@ anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/attack_right/blend_position = Vector2(0, 0)
 parameters/idle_right/blend_position = Vector2(0, 0)
-parameters/run_right/blend_position = Vector2(0, 0)
+parameters/run_right/blend_position = Vector2(-0.431991, 0.540342)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
