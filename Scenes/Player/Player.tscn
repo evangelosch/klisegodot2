@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://bh2g07jdr1y7e"]
+[gd_scene load_steps=54 format=3 uid="uid://bh2g07jdr1y7e"]
 
 [ext_resource type="Script" path="res://Scenes/Player/Player.gd" id="1_82juu"]
 [ext_resource type="Texture2D" uid="uid://bl41152m2v8kx" path="res://Scenes/Player/Animations/player.png" id="2_bux0p"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://States/Player/RunState.gd" id="4_v6tg0"]
 [ext_resource type="Script" path="res://States/Player/IdleState.gd" id="5_yxfan"]
 [ext_resource type="Script" path="res://States/Player/AttackState.gd" id="6_bsx6u"]
+[ext_resource type="Script" path="res://States/Player/DashState.gd" id="7_uitaq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hbfar"]
 atlas = ExtResource("2_bux0p")
@@ -393,17 +394,25 @@ libraries = {
 script = ExtResource("3_qgeuu")
 starting_state = NodePath("Idle")
 
-[node name="Run" type="Node" parent="State_machine" node_paths=PackedStringArray("idle_state", "attack_state")]
+[node name="Run" type="Node" parent="State_machine" node_paths=PackedStringArray("idle_state", "attack_state", "dash_state")]
 script = ExtResource("4_v6tg0")
 idle_state = NodePath("../Idle")
 attack_state = NodePath("../Attack")
+dash_state = NodePath("../Dash")
 
-[node name="Idle" type="Node" parent="State_machine" node_paths=PackedStringArray("run_state", "attack_state")]
+[node name="Idle" type="Node" parent="State_machine" node_paths=PackedStringArray("run_state", "attack_state", "dash_state")]
 script = ExtResource("5_yxfan")
 run_state = NodePath("../Run")
 attack_state = NodePath("../Attack")
+dash_state = NodePath("../Dash")
 
 [node name="Attack" type="Node" parent="State_machine" node_paths=PackedStringArray("run_state", "idle_state")]
 script = ExtResource("6_bsx6u")
 run_state = NodePath("../Run")
 idle_state = NodePath("../Idle")
+
+[node name="Dash" type="Node" parent="State_machine" node_paths=PackedStringArray("run_state", "idle_state", "attack_state")]
+script = ExtResource("7_uitaq")
+run_state = NodePath("../Run")
+idle_state = NodePath("../Idle")
+attack_state = NodePath("../Attack")

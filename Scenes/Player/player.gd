@@ -1,7 +1,6 @@
 class_name Player
 extends CharacterBody2D
 
-
 @onready
 var state_machine = $State_machine
 @onready
@@ -23,3 +22,6 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
+
+func get_input_direction():
+	return Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
