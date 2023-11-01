@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfljki5ope65k"
-path="res://.godot/imported/walk_right.png-5dcc1ad4a22ef49517b0c768d87f2f2c.ctex"
+uid="uid://ih7ktua64ab7"
+path="res://.godot/imported/slime.png-b274e1ec0d75b570b2e955acae561319.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player/art/walk_right.png"
-dest_files=["res://.godot/imported/walk_right.png-5dcc1ad4a22ef49517b0c768d87f2f2c.ctex"]
+source_file="res://Scenes/Enemy/Slime/Art/slime.png"
+dest_files=["res://.godot/imported/slime.png-b274e1ec0d75b570b2e955acae561319.ctex"]
 
 [params]
 
