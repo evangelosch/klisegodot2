@@ -1,30 +1,25 @@
 class_name State
 extends Node
 
-var states
-var current_state
+@export
+var move_speed: float = 400
 
+#var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-func _init():
-	states = {
-		"idle_right": IdleState,
-		"attack_right": AttackState,
-		"run_right": RunState,
-		"parry_right": ParryState
-	}
+## Hold a reference to the parent so that it can be controlled by the state
+var parent: Player
 
+func enter() -> void:
+	pass
 
-func change_state(new_state_name):
-	# Store the last child (if it exists)
-	var last_child = null
-	if get_child_count() > 0:
-		last_child = get_child(get_child_count() - 1)
+func exit() -> void:
+	pass
 
-	# Loop through children and remove all but the last one
-	for child in get_children():
-		if child != last_child:
-			child.queue_free()
+func process_input(event: InputEvent) -> State:
+	return null
 
-	current_state = states.get(new_state_name).new()
-	current_state.name = new_state_name
-	add_child(current_state)
+func process_frame(delta: float) -> State:
+	return null
+
+func process_physics(delta: float) -> State:
+	return null
