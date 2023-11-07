@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://bh2g07jdr1y7e"]
+[gd_scene load_steps=55 format=3 uid="uid://bh2g07jdr1y7e"]
 
 [ext_resource type="Script" path="res://Scenes/Player/Player.gd" id="1_82juu"]
 [ext_resource type="Texture2D" uid="uid://bl41152m2v8kx" path="res://Scenes/Player/Animations/player.png" id="2_bux0p"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://States/Player/IdleState.gd" id="5_yxfan"]
 [ext_resource type="Script" path="res://States/Player/AttackState.gd" id="6_bsx6u"]
 [ext_resource type="Script" path="res://States/Player/DashState.gd" id="7_uitaq"]
+[ext_resource type="Script" path="res://States/Player/ParryState.gd" id="8_kos0e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hbfar"]
 atlas = ExtResource("2_bux0p")
@@ -144,7 +145,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ul002"]
-radius = 5.38516
+radius = 6.64162
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l0u67"]
 animation = &"attack_right"
@@ -240,7 +241,7 @@ states/attack_right/position = Vector2(778, 100)
 states/idle_right/node = SubResource("AnimationNodeBlendSpace2D_v2vn5")
 states/idle_right/position = Vector2(357, 100)
 states/run_right/node = SubResource("AnimationNodeBlendSpace2D_n0r5i")
-states/run_right/position = Vector2(560, 100)
+states/run_right/position = Vector2(557, 251)
 transitions = ["idle_right", "run_right", SubResource("AnimationNodeStateMachineTransition_n125a"), "run_right", "idle_right", SubResource("AnimationNodeStateMachineTransition_mmll2"), "Start", "idle_right", SubResource("AnimationNodeStateMachineTransition_hfjxs"), "idle_right", "attack_right", SubResource("AnimationNodeStateMachineTransition_t1jbb"), "attack_right", "idle_right", SubResource("AnimationNodeStateMachineTransition_xp5m7"), "attack_right", "run_right", SubResource("AnimationNodeStateMachineTransition_epxfq"), "run_right", "attack_right", SubResource("AnimationNodeStateMachineTransition_s22jv")]
 
 [sub_resource type="Animation" id="Animation_lsk5q"]
@@ -362,19 +363,19 @@ _data = {
 "run_right": SubResource("Animation_rx8k1")
 }
 
-[node name="Player" type="CharacterBody2D" groups=["player"]]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 texture_filter = 1
 scale = Vector2(3, 3)
 script = ExtResource("1_82juu")
 metadata/_edit_vertical_guides_ = []
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -17.6667)
+position = Vector2(0, -10)
 sprite_frames = SubResource("SpriteFrames_8ntwr")
-animation = &"attack_right"
+animation = &"idle_right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -8.66667)
+position = Vector2(-0.333333, -2.33333)
 shape = SubResource("CircleShape2D_ul002")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
@@ -394,17 +395,19 @@ libraries = {
 script = ExtResource("3_qgeuu")
 starting_state = NodePath("Idle")
 
-[node name="Run" type="Node" parent="State_machine" node_paths=PackedStringArray("idle_state", "attack_state", "dash_state")]
+[node name="Run" type="Node" parent="State_machine" node_paths=PackedStringArray("idle_state", "attack_state", "dash_state", "parry_state")]
 script = ExtResource("4_v6tg0")
 idle_state = NodePath("../Idle")
 attack_state = NodePath("../Attack")
 dash_state = NodePath("../Dash")
+parry_state = NodePath("../Parry")
 
-[node name="Idle" type="Node" parent="State_machine" node_paths=PackedStringArray("run_state", "attack_state", "dash_state")]
+[node name="Idle" type="Node" parent="State_machine" node_paths=PackedStringArray("run_state", "attack_state", "dash_state", "parry_state")]
 script = ExtResource("5_yxfan")
 run_state = NodePath("../Run")
 attack_state = NodePath("../Attack")
 dash_state = NodePath("../Dash")
+parry_state = NodePath("../Parry")
 
 [node name="Attack" type="Node" parent="State_machine" node_paths=PackedStringArray("run_state", "idle_state")]
 script = ExtResource("6_bsx6u")
@@ -416,3 +419,10 @@ script = ExtResource("7_uitaq")
 run_state = NodePath("../Run")
 idle_state = NodePath("../Idle")
 attack_state = NodePath("../Attack")
+
+[node name="Parry" type="Node" parent="State_machine" node_paths=PackedStringArray("run_state", "idle_state", "attack_state", "dash_state")]
+script = ExtResource("8_kos0e")
+run_state = NodePath("../Run")
+idle_state = NodePath("../Idle")
+attack_state = NodePath("../Attack")
+dash_state = NodePath("../Dash")

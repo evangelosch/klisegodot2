@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://bav1fnp7nnrtb"]
+[gd_scene load_steps=4 format=3 uid="uid://bav1fnp7nnrtb"]
 
 [ext_resource type="Texture2D" uid="uid://djsipby6vkt7m" path="res://Scenes/Enemy/Cyclops/Art/tile_0109.png" id="1_c2807"]
+[ext_resource type="Script" path="res://Scenes/Enemy/Cyclops/Cyclops.gd" id="1_y7avk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e6hg8"]
 radius = 6.08276
 
-[node name="Cyclops" type="CharacterBody2D"]
+[node name="Cyclops" type="CharacterBody2D" groups=["Enemy"]]
 scale = Vector2(4, 4)
+script = ExtResource("1_y7avk")
 
 [node name="CyclopsSprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_c2807")
