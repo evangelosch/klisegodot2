@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bmsqjfxc4h4x"]
+[gd_scene load_steps=7 format=3 uid="uid://bmsqjfxc4h4x"]
 
 [ext_resource type="PackedScene" uid="uid://bh2g07jdr1y7e" path="res://Scenes/Player/Player.tscn" id="1_sfu5f"]
 [ext_resource type="PackedScene" uid="uid://bqy4l2yuudcl2" path="res://Scenes/Enemy/Slime/Slime.tscn" id="3_8crmh"]
-[ext_resource type="PackedScene" uid="uid://bav1fnp7nnrtb" path="res://Scenes/Enemy/Cyclops/Cyclops.tscn" id="3_cvokg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mj0td"]
 size = Vector2(28, 714)
@@ -50,6 +49,3 @@ position = Vector2(849, 472)
 
 [node name="Slime" parent="." instance=ExtResource("3_8crmh")]
 position = Vector2(90, 514)
-
-[node name="Cyclops" parent="." instance=ExtResource("3_cvokg")]
-position = Vector2(212, 321)
