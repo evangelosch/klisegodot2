@@ -1,6 +1,7 @@
 class_name Player
 extends CharacterBody2D
 
+
 @onready
 var state_machine = $State_machine
 @onready
@@ -9,7 +10,6 @@ var animation_machine = $AnimationTree.get("parameters/playback")
 var animation_tree = $AnimationTree
 @onready
 var player_sprite = $AnimatedSprite2D
-
 
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,

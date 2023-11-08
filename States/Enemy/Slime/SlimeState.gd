@@ -1,12 +1,11 @@
 class_name SlimeState
 extends Node
 
+
 @export
 var move_speed: float = 400
 @onready
 var player: Player = get_tree().get_first_node_in_group("Player")
-#var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
-
 ## Hold a reference to the parent so that it can be controlled by the state
 var parent: Slime
 

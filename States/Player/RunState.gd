@@ -1,5 +1,6 @@
 extends State
 
+
 @export
 var idle_state: State
 @export
@@ -8,9 +9,7 @@ var attack_state: State
 var dash_state: State
 @export
 var parry_state: State
-
 var input_direction: Vector2
-
 
 func enter() -> void:
 	parent.animation_machine.travel("run_right")

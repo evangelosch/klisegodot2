@@ -1,16 +1,13 @@
 class_name Slime
 extends CharacterBody2D
 
+
 @onready
 var state_machine = $SlimeState_machine
 @export
 var speed: float = 220
 @onready
 var ray_cast : RayCast2D = $RayCast2D
-#@onready
-#var animation_machine = $AnimationTree.get("parameters/playback")
-#@onready
-#var animation_tree = $AnimationTree
 
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,

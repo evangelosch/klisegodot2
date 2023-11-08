@@ -4,7 +4,6 @@ extends Node
 var starting_state: SlimeState
 var current_state: SlimeState
 
-
 # Initialize the state machine by giving each child state a reference to the
 # parent object it belongs to and enter the default starting_state.
 func init(parent: Slime) -> void:

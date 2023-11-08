@@ -1,5 +1,6 @@
 extends State
 
+
 @export
 var run_state: State
 @export
@@ -8,7 +9,6 @@ var idle_state: State
 var attack_state: State
 @export
 var dash_state: State
-
 var input_direction: Vector2
 var potential_target: CharacterBody2D = null
 

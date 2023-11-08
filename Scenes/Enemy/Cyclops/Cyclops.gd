@@ -1,6 +1,7 @@
 # Cyclops.gd
 extends CharacterBody2D
 
+
 var is_mouse_over = false
 
 func _ready():

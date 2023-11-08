@@ -1,5 +1,6 @@
 extends SlimeState
 
+
 var direction: Vector2 = Vector2.ZERO
 @export
 var shoot_state: SlimeState

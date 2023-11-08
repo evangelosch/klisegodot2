@@ -1,5 +1,6 @@
 extends SlimeState
 
+
 @export var bullet_node : PackedScene
 # Called when the node enters the scene tree for the first time.
 @onready
