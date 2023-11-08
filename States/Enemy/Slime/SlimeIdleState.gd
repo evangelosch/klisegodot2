@@ -1,6 +1,6 @@
 extends SlimeState
 
-@onready var ray_cast = $"../../RayCast2D"
+@onready var ray_cast = get_node("RayCast2D")
 @export
 var shoot_state: SlimeState
 @export

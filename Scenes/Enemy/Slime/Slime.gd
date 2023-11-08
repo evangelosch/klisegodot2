@@ -3,11 +3,11 @@ extends CharacterBody2D
 
 
 @onready
-var state_machine = $SlimeState_machine
+var state_machine = get_node("SlimeState_machine")
 @export
 var speed: float = 220
 @onready
-var ray_cast : RayCast2D = $RayCast2D
+var ray_cast : RayCast2D = get_node("RayCast2D")
 
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,

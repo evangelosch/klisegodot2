@@ -5,7 +5,7 @@ var run_state: State
 @export
 var idle_state: State
 @onready
-var animation_tree = $"../../AnimationTree"
+var animation_tree = get_parent().get_parent().get_node("AnimationTree")
 
 var animation_ended = false
 var input_direction: Vector2
