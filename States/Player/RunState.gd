@@ -18,6 +18,7 @@ func enter() -> void:
 
 func process_input(event: InputEvent) -> State:
 	input_direction = parent.get_input_direction()
+	
 	if input_direction == Vector2.ZERO:
 		return idle_state
 	if Input.is_action_just_pressed("attack_right"):
