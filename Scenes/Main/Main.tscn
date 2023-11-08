@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://bmsqjfxc4h4x"]
+[gd_scene load_steps=7 format=3 uid="uid://bmsqjfxc4h4x"]
 
 [ext_resource type="PackedScene" uid="uid://bh2g07jdr1y7e" path="res://Scenes/Player/Player.tscn" id="1_sfu5f"]
-[ext_resource type="PackedScene" uid="uid://bav1fnp7nnrtb" path="res://Scenes/Enemy/Cyclops/Cyclops.tscn" id="2_3r00v"]
 [ext_resource type="PackedScene" uid="uid://bqy4l2yuudcl2" path="res://Scenes/Enemy/Slime/Slime.tscn" id="3_8crmh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mj0td"]
@@ -46,10 +45,7 @@ position = Vector2(0, 369)
 shape = SubResource("RectangleShape2D_sh6dn")
 
 [node name="Player" parent="." instance=ExtResource("1_sfu5f")]
-position = Vector2(428, 547)
-
-[node name="Cyclops" parent="." instance=ExtResource("2_3r00v")]
-position = Vector2(907, 364)
+position = Vector2(849, 472)
 
 [node name="Slime" parent="." instance=ExtResource("3_8crmh")]
-position = Vector2(526, 342)
+position = Vector2(90, 514)

@@ -3,12 +3,13 @@ extends CharacterBody2D
 
 
 @onready
-var state_machine = $State_machine
+var state_machine = get_node("State_machine")
 @onready
-var animation_machine = $AnimationTree.get("parameters/playback")
+var animation_machine = get_node("AnimationTree").get("parameters/playback")
 @onready
-var animation_tree = $AnimationTree
-
+var animation_tree = get_node("AnimationTree")
+@onready
+var player_sprite = get_node("AnimatedSprite2D")
 
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
@@ -23,3 +24,14 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	state_machine.process_frame(delta)
+
+func get_input_direction():
+	flip()
+	return Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
+
+func flip():
+	var direction = sign(get_global_mouse_position().x - player_sprite.global_position.x)
+	if direction < 0:
+		player_sprite.set_flip_h(true)
+	else:
+		player_sprite.set_flip_h(false)

@@ -4,12 +4,12 @@ extends State
 var run_state: State
 @export
 var idle_state: State
-
 @onready
-var animation_tree = $"../../AnimationTree"
-
+var animation_tree = get_parent().get_parent().get_node("AnimationTree")
 
 var animation_ended = false
+var input_direction: Vector2
+
 
 func _ready():
 	animation_tree.animation_finished.connect(_on_animation_tree_animation_finished)
@@ -23,9 +23,8 @@ func _on_animation_tree_animation_finished(animation_name: String):
 	if animation_name == "attack_right": # Check if it's the correct animation
 		animation_ended = true
 
-
 func process_physics(delta: float) -> State:
-	var input_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	input_direction = parent.get_input_direction()
 	if input_direction == Vector2.ZERO and animation_ended:
 		return idle_state
 	elif input_direction != Vector2.ZERO and not animation_ended:

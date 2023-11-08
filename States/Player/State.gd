@@ -3,7 +3,6 @@ extends Node
 
 @export
 var move_speed: float = 400
-
 #var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 ## Hold a reference to the parent so that it can be controlled by the state

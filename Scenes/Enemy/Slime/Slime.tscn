@@ -1,18 +1,94 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqy4l2yuudcl2"]
+[gd_scene load_steps=16 format=3 uid="uid://bqy4l2yuudcl2"]
 
+[ext_resource type="Script" path="res://Scenes/Enemy/Slime/Slime.gd" id="1_4xukk"]
 [ext_resource type="Texture2D" uid="uid://ih7ktua64ab7" path="res://Scenes/Enemy/Slime/Art/slime.png" id="1_c7tes"]
+[ext_resource type="Script" path="res://States/Enemy/Slime/SlimeState_machine.gd" id="2_0pvhe"]
+[ext_resource type="Script" path="res://States/Enemy/Slime/SlimeIdleState.gd" id="3_8tnbj"]
+[ext_resource type="Script" path="res://Scenes/Enemy/Slime/RayCast.gd" id="3_ab8wg"]
+[ext_resource type="Script" path="res://States/Enemy/Slime/SlimeShootState.gd" id="4_vj4al"]
+[ext_resource type="Script" path="res://States/Enemy/Slime/SlimeFollowState.gd" id="5_555ee"]
+[ext_resource type="Script" path="res://States/Enemy/Slime/SlimeDashState.gd" id="6_xee7k"]
+[ext_resource type="PackedScene" uid="uid://bon4d8w0olstg" path="res://Scenes/Bullet/Bullet.tscn" id="7_v37f2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghjh7"]
+atlas = ExtResource("1_c7tes")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8tnhu"]
+atlas = ExtResource("1_c7tes")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jr3ks"]
+atlas = ExtResource("1_c7tes")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5g5gf"]
+atlas = ExtResource("1_c7tes")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tu1nf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghjh7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8tnhu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jr3ks")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5g5gf")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6txts"]
 radius = 6.0
 
-[node name="Slime" type="CharacterBody2D"]
+[node name="Slime" type="CharacterBody2D" groups=["Enemy"]]
 scale = Vector2(4, 4)
+script = ExtResource("1_4xukk")
 
-[node name="SlimeSprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_c7tes")
-hframes = 7
-vframes = 4
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_tu1nf")
+animation = &"idle"
+autoplay = "idle"
+frame = 1
+frame_progress = 0.919286
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
+position = Vector2(0.25, 2)
 shape = SubResource("CircleShape2D_6txts")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+script = ExtResource("3_ab8wg")
+
+[node name="SlimeState_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("2_0pvhe")
+starting_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="SlimeState_machine" node_paths=PackedStringArray("shoot_state", "follow_state")]
+script = ExtResource("3_8tnbj")
+shoot_state = NodePath("../Shoot")
+follow_state = NodePath("../Follow")
+
+[node name="Shoot" type="Node" parent="SlimeState_machine"]
+script = ExtResource("4_vj4al")
+bullet_node = ExtResource("7_v37f2")
+
+[node name="Timer" type="Timer" parent="SlimeState_machine/Shoot"]
+wait_time = 0.75
+
+[node name="Follow" type="Node" parent="SlimeState_machine" node_paths=PackedStringArray("shoot_state", "idle_state")]
+script = ExtResource("5_555ee")
+shoot_state = NodePath("../Shoot")
+idle_state = NodePath("../Idle")
+
+[node name="Dash" type="Node" parent="SlimeState_machine"]
+script = ExtResource("6_xee7k")
+
+[connection signal="timeout" from="SlimeState_machine/Shoot/Timer" to="SlimeState_machine/Shoot" method="_on_timer_timeout"]
