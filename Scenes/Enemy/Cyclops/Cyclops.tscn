@@ -1,7 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bav1fnp7nnrtb"]
+[gd_scene load_steps=11 format=3 uid="uid://bav1fnp7nnrtb"]
 
 [ext_resource type="Texture2D" uid="uid://djsipby6vkt7m" path="res://Scenes/Enemy/Cyclops/Art/tile_0109.png" id="1_c2807"]
 [ext_resource type="Script" path="res://Scenes/Enemy/Cyclops/Cyclops.gd" id="1_y7avk"]
+[ext_resource type="Script" path="res://Scenes/Enemy/Slime/RayCast.gd" id="3_3htsb"]
+[ext_resource type="Script" path="res://States/Enemy/EnemyState_machine.gd" id="4_50e7x"]
+[ext_resource type="Script" path="res://States/Enemy/Cyclops/CyclopsIdleState.gd" id="5_d5aji"]
+[ext_resource type="PackedScene" uid="uid://bon4d8w0olstg" path="res://Scenes/Bullet/Bullet.tscn" id="6_2d0pv"]
+[ext_resource type="Script" path="res://States/Enemy/Cyclops/CyclopsShootState.gd" id="6_5u2uq"]
+[ext_resource type="Script" path="res://States/Enemy/Cyclops/CyclopsFollowState.gd" id="8_5ikqv"]
+[ext_resource type="Script" path="res://States/Enemy/Cyclops/CyclopsDashState.gd" id="9_2luud"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e6hg8"]
 radius = 6.08276
@@ -15,3 +22,32 @@ texture = ExtResource("1_c2807")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_e6hg8")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+script = ExtResource("3_3htsb")
+
+[node name="EnemyState_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("4_50e7x")
+starting_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="EnemyState_machine" node_paths=PackedStringArray("shoot_state", "follow_state")]
+script = ExtResource("5_d5aji")
+shoot_state = NodePath("../Shoot")
+follow_state = NodePath("../Follow")
+
+[node name="Shoot" type="Node" parent="EnemyState_machine"]
+script = ExtResource("6_5u2uq")
+bullet_node = ExtResource("6_2d0pv")
+
+[node name="Timer" type="Timer" parent="EnemyState_machine/Shoot"]
+wait_time = 0.75
+
+[node name="Follow" type="Node" parent="EnemyState_machine" node_paths=PackedStringArray("shoot_state", "idle_state")]
+script = ExtResource("8_5ikqv")
+shoot_state = NodePath("../Shoot")
+idle_state = NodePath("../Idle")
+
+[node name="Dash" type="Node" parent="EnemyState_machine"]
+script = ExtResource("9_2luud")
+
+[connection signal="timeout" from="EnemyState_machine/Shoot/Timer" to="EnemyState_machine/Shoot" method="_on_timer_timeout"]

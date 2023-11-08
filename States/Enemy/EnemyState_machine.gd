@@ -1,12 +1,12 @@
 extends Node
 
 @export
-var starting_state: SlimeState
-var current_state: SlimeState
+var starting_state: EnemyState
+var current_state: EnemyState
 
 # Initialize the state machine by giving each child state a reference to the
 # parent object it belongs to and enter the default starting_state.
-func init(parent: Slime) -> void:
+func init(parent: Enemy) -> void:
 	for child in get_children():
 		child.parent = parent
 	print(starting_state)
@@ -14,7 +14,7 @@ func init(parent: Slime) -> void:
 	change_state(starting_state)
 
 # Change to the new state by first calling any exit logic on the current state.
-func change_state(new_state: SlimeState) -> void:
+func change_state(new_state: EnemyState) -> void:
 	if current_state:
 		current_state.exit()
 

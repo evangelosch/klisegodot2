@@ -1,9 +1,7 @@
 class_name Slime
-extends CharacterBody2D
+extends Enemy
 
 
-@onready
-var state_machine = get_node("SlimeState_machine")
 @export
 var speed: float = 220
 @onready

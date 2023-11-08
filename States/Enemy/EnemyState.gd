@@ -1,4 +1,4 @@
-class_name SlimeState
+class_name EnemyState
 extends Node
 
 
@@ -7,7 +7,7 @@ var move_speed: float = 400
 @onready
 var player: Player = get_tree().get_first_node_in_group("Player")
 ## Hold a reference to the parent so that it can be controlled by the state
-var parent: Slime
+var parent: Node
 
 func enter() -> void:
 	pass
@@ -15,8 +15,8 @@ func enter() -> void:
 func exit() -> void:
 	pass
 
-func process_frame(delta: float) -> SlimeState:
+func process_frame(delta: float) -> EnemyState:
 	return null
 
-func process_physics(delta: float) -> SlimeState:
+func process_physics(delta: float) -> EnemyState:
 	return null
