@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://bh2g07jdr1y7e"]
+[gd_scene load_steps=57 format=3 uid="uid://bh2g07jdr1y7e"]
 
 [ext_resource type="Script" path="res://Scenes/Player/Player.gd" id="1_82juu"]
 [ext_resource type="Texture2D" uid="uid://bl41152m2v8kx" path="res://Scenes/Player/Animations/player.png" id="2_bux0p"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://States/Player/IdleState.gd" id="5_yxfan"]
 [ext_resource type="Script" path="res://States/Player/AttackState.gd" id="6_bsx6u"]
 [ext_resource type="Script" path="res://States/Player/DashState.gd" id="7_uitaq"]
+[ext_resource type="PackedScene" uid="uid://bywyh67iq1jd7" path="res://Scenes/Player/DashEffect.tscn" id="8_1s0ji"]
 [ext_resource type="Script" path="res://States/Player/ParryState.gd" id="8_kos0e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hbfar"]
@@ -375,9 +376,9 @@ script = ExtResource("1_82juu")
 metadata/_edit_vertical_guides_ = []
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -10)
 sprite_frames = SubResource("SpriteFrames_8ntwr")
 animation = &"attack_right"
+offset = Vector2(0, -10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.333333, -2.33333)
@@ -431,6 +432,10 @@ script = ExtResource("7_uitaq")
 run_state = NodePath("../Run")
 idle_state = NodePath("../Idle")
 attack_state = NodePath("../Attack")
+dash_effect = ExtResource("8_1s0ji")
+
+[node name="DashTimer" type="Timer" parent="State_machine/Dash"]
+wait_time = 0.1
 
 [node name="Parry" type="Node" parent="State_machine" node_paths=PackedStringArray("run_state", "idle_state", "attack_state", "dash_state")]
 script = ExtResource("8_kos0e")
