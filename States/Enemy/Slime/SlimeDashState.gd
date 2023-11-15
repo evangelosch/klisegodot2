@@ -1,10 +1,23 @@
 extends EnemyState
 
+@export
+var follow_state: EnemyState
+@onready
+var timer = get_node("Timer")
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+func enter():
+	timer.connect("timeout", _on_timer_timeout)
+	timer.start()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func exit():
+	timer.disconnect("timeout", _on_timer_timeout)
+	timer.stop()
+
+func _on_timer_timeout():
+	dash()
+	
+
+func dash() -> EnemyState:
+	var tween = get_tree().create_tween()
+	tween.tween_property(owner, "position", player.position, 0.3)
+	return parent.state_machine.change_state(follow_state)

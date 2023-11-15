@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://bh2g07jdr1y7e"]
+[gd_scene load_steps=56 format=3 uid="uid://bh2g07jdr1y7e"]
 
 [ext_resource type="Script" path="res://Scenes/Player/Player.gd" id="1_82juu"]
 [ext_resource type="Texture2D" uid="uid://bl41152m2v8kx" path="res://Scenes/Player/Animations/player.png" id="2_bux0p"]
@@ -146,6 +146,10 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ul002"]
 radius = 6.64162
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yjbhv"]
+radius = 7.66667
+height = 21.3333
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l0u67"]
 animation = &"attack_right"
@@ -366,6 +370,7 @@ _data = {
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 texture_filter = 1
 scale = Vector2(3, 3)
+collision_mask = 2
 script = ExtResource("1_82juu")
 metadata/_edit_vertical_guides_ = []
 
@@ -377,6 +382,13 @@ animation = &"attack_right"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.333333, -2.33333)
 shape = SubResource("CircleShape2D_ul002")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, -2)
+shape = SubResource("CapsuleShape2D_yjbhv")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_m3brj")

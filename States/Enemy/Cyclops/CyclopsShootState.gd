@@ -7,7 +7,6 @@ extends EnemyState
 var timer = get_node("Timer")
 
 func enter():
-	print("shoot")
 	timer.start()
 
 func exit():

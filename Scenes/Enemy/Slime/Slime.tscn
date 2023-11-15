@@ -51,6 +51,7 @@ radius = 6.0
 
 [node name="Slime" type="CharacterBody2D" groups=["Enemy"]]
 scale = Vector2(4, 4)
+collision_layer = 2
 script = ExtResource("1_4xukk")
 speed = 100.0
 
@@ -65,6 +66,15 @@ frame_progress = 0.919286
 position = Vector2(0.25, 2)
 shape = SubResource("CircleShape2D_6txts")
 
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -7.5
+offset_top = -10.5
+offset_right = 66.5
+offset_bottom = 16.5
+scale = Vector2(0.2, 0.2)
+max_value = 2.0
+value = 2.0
+
 [node name="RayCast2D" type="RayCast2D" parent="."]
 script = ExtResource("3_ab8wg")
 
@@ -77,19 +87,24 @@ script = ExtResource("3_8tnbj")
 shoot_state = NodePath("../Shoot")
 follow_state = NodePath("../Follow")
 
-[node name="Shoot" type="Node" parent="EnemyState_machine"]
+[node name="Shoot" type="Node" parent="EnemyState_machine" node_paths=PackedStringArray("follow_state", "dash_state")]
 script = ExtResource("4_vj4al")
+follow_state = NodePath("../Follow")
+dash_state = NodePath("../Dash")
 bullet_node = ExtResource("7_v37f2")
 
 [node name="Timer" type="Timer" parent="EnemyState_machine/Shoot"]
 wait_time = 0.75
 
-[node name="Follow" type="Node" parent="EnemyState_machine" node_paths=PackedStringArray("shoot_state", "idle_state")]
+[node name="Follow" type="Node" parent="EnemyState_machine" node_paths=PackedStringArray("shoot_state", "idle_state", "dash_state")]
 script = ExtResource("5_555ee")
 shoot_state = NodePath("../Shoot")
 idle_state = NodePath("../Idle")
+dash_state = NodePath("../Dash")
 
-[node name="Dash" type="Node" parent="EnemyState_machine"]
+[node name="Dash" type="Node" parent="EnemyState_machine" node_paths=PackedStringArray("follow_state")]
 script = ExtResource("6_xee7k")
+follow_state = NodePath("../Follow")
 
-[connection signal="timeout" from="EnemyState_machine/Shoot/Timer" to="EnemyState_machine/Shoot" method="_on_timer_timeout"]
+[node name="Timer" type="Timer" parent="EnemyState_machine/Dash"]
+wait_time = 0.5
