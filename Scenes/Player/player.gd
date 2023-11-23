@@ -9,7 +9,7 @@ var animation_machine = get_node("AnimationTree").get("parameters/playback")
 @onready
 var animation_tree = get_node("AnimationTree")
 @onready
-var player_sprite = get_node("AnimatedSprite2D")
+var player_sprite : AnimatedSprite2D = get_node("PlayerBody").get_node("AnimatedSprite2D")
 
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,

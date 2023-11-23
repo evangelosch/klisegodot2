@@ -20,16 +20,6 @@ var collision
 func enter():
 	collision = false
 
-func start_dash():
-	for enemy in get_tree().get_nodes_in_group("Enemy"):
-		if enemy.get_is_mouse_over():
-			target_enemy = enemy
-			dash_direction = (target_enemy.global_position - parent.global_position).normalized() 
-			is_dashing = true
-			break #once enemy under mouse is found break from the loop
-		else :
-			is_dashing = false
-
 func process_physics(delta: float) -> State:
 	start_dash()
 	if is_dashing:
@@ -42,10 +32,20 @@ func process_physics(delta: float) -> State:
 			if body.name == target_enemy.name:
 				parent.velocity = collision.get_position()
 				is_dashing = false
-				parent.move_and_slide()
+				#parent.move_and_slide()
 				handle_dash_collision_with_enemy()
 		return idle_state
 	return idle_state
+
+func start_dash():
+	for enemy in get_tree().get_nodes_in_group("Enemy"):
+		if enemy.get_is_mouse_over():
+			target_enemy = enemy
+			dash_direction = (target_enemy.global_position - parent.global_position).normalized() 
+			is_dashing = true
+			break #once enemy under mouse is found break from the loop
+		else :
+			is_dashing = false
 
 func handle_dash_collision_with_enemy() -> State:
 	if is_parry_successful():
