@@ -1,21 +1,17 @@
 class_name Slime
-extends CharacterBody2D
+extends Enemy
 
 
-@onready
-var state_machine = get_node("SlimeState_machine")
 @export
 var speed: float = 220
 @onready
-var ray_cast : RayCast2D = get_node("RayCast2D")
+var progress_bar : ProgressBar = $ProgressBar
 
-func _ready() -> void:
-	# Initialize the state machine, passing a reference of the player to the states,
-	# that way they can move and react accordingly
-	state_machine.init(self)
+var health: = 2:
+	set(value):
+		health = value
+		progress_bar.value = value
 
-func _physics_process(delta: float) -> void:
-	state_machine.process_physics(delta)
-
-func _process(delta: float) -> void:
-	state_machine.process_frame(delta)
+func _input(event):
+	if event.is_action_pressed("damage"):
+		health -= 1

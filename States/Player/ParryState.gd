@@ -10,25 +10,51 @@ var attack_state: State
 @export
 var dash_state: State
 var input_direction: Vector2
-var potential_target: CharacterBody2D = null
+var dash_direction: Vector2
+var is_dashing = false
+var dash_distance = 30000
+var target_enemy: Enemy
+var collision
 
-func _ready():
-	pass
 
-func enter() -> void:
-	print(" parry state entered")
-	for enemy in get_tree().get_nodes_in_group("Enemy"):
-		if enemy.get_is_mouse_over():
-			parent.global_position = enemy.global_position
-			break  # Stop after teleporting to the first enemy under the mouse
+func enter():
+	collision = false
 
 func process_physics(delta: float) -> State:
-	if input_direction == Vector2.ZERO:
+	start_dash()
+	if is_dashing:
+		parent.velocity = dash_distance * dash_direction * delta
+		parent.move_and_collide(parent.velocity)
+		for index in parent.get_slide_collision_count():
+			var collision = parent.get_slide_collision(index)
+			var body = collision.get_collider()
+			print(body)
+			if body.name == target_enemy.name:
+				parent.velocity = collision.get_position()
+				is_dashing = false
+				#parent.move_and_slide()
+				handle_dash_collision_with_enemy()
 		return idle_state
-	elif input_direction != Vector2.ZERO:
-		return run_state
-	elif Input.is_action_just_pressed("attack_right"):
-		return attack_state
-	elif Input.is_action_just_pressed("dash"):
-		return dash_state
-	return null
+	return idle_state
+
+func start_dash():
+	for enemy in get_tree().get_nodes_in_group("Enemy"):
+		if enemy.get_is_mouse_over():
+			target_enemy = enemy
+			dash_direction = (target_enemy.global_position - parent.global_position).normalized() 
+			is_dashing = true
+			break #once enemy under mouse is found break from the loop
+		else :
+			is_dashing = false
+
+func handle_dash_collision_with_enemy() -> State:
+	if is_parry_successful():
+		return idle_state
+	else:
+		# Handle unsuccessful parry
+		print("Parry failed")
+		return idle_state
+
+
+func is_parry_successful() -> bool:
+	return true
