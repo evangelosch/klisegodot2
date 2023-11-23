@@ -378,6 +378,7 @@ _data = {
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 texture_filter = 1
+scale = Vector2(3, 3)
 collision_mask = 2
 script = ExtResource("1_82juu")
 metadata/_edit_vertical_guides_ = []

@@ -19,7 +19,6 @@ radius = 7.25
 height = 18.5
 
 [node name="Cyclops" type="CharacterBody2D" groups=["Enemy"]]
-scale = Vector2(4, 4)
 collision_layer = 2
 script = ExtResource("1_y7avk")
 

@@ -50,7 +50,6 @@ animations = [{
 radius = 6.0
 
 [node name="Slime" type="CharacterBody2D" groups=["Enemy"]]
-scale = Vector2(4, 4)
 collision_layer = 2
 script = ExtResource("1_4xukk")
 speed = 100.0
