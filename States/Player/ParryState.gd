@@ -35,7 +35,10 @@ func process_physics(delta: float) -> State:
 				#parent.move_and_slide()
 				handle_dash_collision_with_enemy()
 		return idle_state
-	return idle_state
+	if parent.get_input_direction() == Vector2.ZERO:
+		return idle_state
+	else:
+		return run_state
 
 func start_dash():
 	for enemy in get_tree().get_nodes_in_group("Enemy"):

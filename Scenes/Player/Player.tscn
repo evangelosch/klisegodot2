@@ -1,6 +1,8 @@
-[gd_scene load_steps=54 format=3 uid="uid://bh2g07jdr1y7e"]
+[gd_scene load_steps=57 format=3 uid="uid://bh2g07jdr1y7e"]
 
 [ext_resource type="Script" path="res://Scenes/Player/Player.gd" id="1_82juu"]
+[ext_resource type="Script" path="res://Scenes/Player/SwordHitBox.gd" id="2_ld1w5"]
+[ext_resource type="Script" path="res://Scenes/Player/SwordCollisionShape.gd" id="3_81xnq"]
 [ext_resource type="Script" path="res://States/Player/State_machine.gd" id="3_qgeuu"]
 [ext_resource type="Texture2D" uid="uid://c8de881gomytf" path="res://assets/adventurer-Sheet.png" id="4_leke2"]
 [ext_resource type="Script" path="res://States/Player/RunState.gd" id="4_v6tg0"]
@@ -9,6 +11,9 @@
 [ext_resource type="Script" path="res://States/Player/DashState.gd" id="7_uitaq"]
 [ext_resource type="PackedScene" uid="uid://bywyh67iq1jd7" path="res://Scenes/Player/DashEffect.tscn" id="8_1s0ji"]
 [ext_resource type="Script" path="res://States/Player/ParryState.gd" id="8_kos0e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1174g"]
+size = Vector2(17.6667, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j4jly"]
 atlas = ExtResource("4_leke2")
@@ -271,6 +276,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0, 8)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SwordHitBox/SwordCollisionShape:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 
 [sub_resource type="Animation" id="Animation_6m8fr"]
 length = 0.3
@@ -378,9 +395,23 @@ _data = {
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 texture_filter = 1
+scale = Vector2(3, 3)
 collision_mask = 2
 script = ExtResource("1_82juu")
 metadata/_edit_vertical_guides_ = []
+
+[node name="SwordHitBox" type="Area2D" parent="." node_paths=PackedStringArray("player", "sword_collision_shape")]
+script = ExtResource("2_ld1w5")
+player = NodePath("..")
+sword_collision_shape = NodePath("SwordCollisionShape")
+
+[node name="SwordCollisionShape" type="CollisionShape2D" parent="SwordHitBox"]
+position = Vector2(17.5, 4)
+shape = SubResource("RectangleShape2D_1174g")
+disabled = true
+script = ExtResource("3_81xnq")
+right_direction = Vector2(17.5, 0)
+left_direction = Vector2(-17.5, 0)
 
 [node name="PlayerBody" type="Node2D" parent="."]
 
@@ -389,6 +420,7 @@ sprite_frames = SubResource("SpriteFrames_8ntwr")
 animation = &"attack_right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CapsuleShape2D_enhlr")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]

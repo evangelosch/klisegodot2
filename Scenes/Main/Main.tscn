@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bmsqjfxc4h4x"]
+[gd_scene load_steps=7 format=3 uid="uid://bmsqjfxc4h4x"]
 
+[ext_resource type="PackedScene" uid="uid://bqy4l2yuudcl2" path="res://Scenes/Enemy/Slime/Slime.tscn" id="1_4n6c1"]
 [ext_resource type="PackedScene" uid="uid://bh2g07jdr1y7e" path="res://Scenes/Player/Player.tscn" id="1_sfu5f"]
-[ext_resource type="PackedScene" uid="uid://bav1fnp7nnrtb" path="res://Scenes/Enemy/Cyclops/Cyclops.tscn" id="2_dlw06"]
-[ext_resource type="PackedScene" uid="uid://bqy4l2yuudcl2" path="res://Scenes/Enemy/Slime/Slime.tscn" id="3_i15y7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mj0td"]
 size = Vector2(28, 714)
@@ -17,6 +16,8 @@ size = Vector2(1277, 36)
 size = Vector2(1280, 15)
 
 [node name="Main" type="Node"]
+
+[node name="Slime" parent="." instance=ExtResource("1_4n6c1")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(640, 356)
@@ -49,9 +50,3 @@ shape = SubResource("RectangleShape2D_sh6dn")
 
 [node name="Player" parent="." instance=ExtResource("1_sfu5f")]
 position = Vector2(905, 272)
-
-[node name="Cyclops" parent="." instance=ExtResource("2_dlw06")]
-position = Vector2(170, 326)
-
-[node name="Slime" parent="." instance=ExtResource("3_i15y7")]
-position = Vector2(427, 587)

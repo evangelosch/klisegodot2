@@ -50,6 +50,7 @@ animations = [{
 radius = 6.0
 
 [node name="Slime" type="CharacterBody2D" groups=["Enemy"]]
+scale = Vector2(3, 3)
 collision_layer = 2
 script = ExtResource("1_4xukk")
 speed = 100.0
@@ -106,4 +107,4 @@ script = ExtResource("6_xee7k")
 follow_state = NodePath("../Follow")
 
 [node name="Timer" type="Timer" parent="EnemyState_machine/Dash"]
-wait_time = 0.5
+wait_time = 1.5

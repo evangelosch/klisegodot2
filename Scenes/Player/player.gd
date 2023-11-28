@@ -3,13 +3,14 @@ extends CharacterBody2D
 
 
 @onready
-var state_machine = get_node("State_machine")
+var state_machine : Node = get_node("State_machine")
 @onready
 var animation_machine = get_node("AnimationTree").get("parameters/playback")
 @onready
-var animation_tree = get_node("AnimationTree")
+var animation_tree : AnimationTree = get_node("AnimationTree")
 @onready
 var player_sprite : AnimatedSprite2D = get_node("PlayerBody").get_node("AnimatedSprite2D")
+signal player_direction(facing_right : bool)
 
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
@@ -35,3 +36,5 @@ func flip():
 		player_sprite.set_flip_h(true)
 	else:
 		player_sprite.set_flip_h(false)
+		
+	emit_signal("player_direction", !player_sprite.flip_h)

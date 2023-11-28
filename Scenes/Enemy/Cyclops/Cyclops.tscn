@@ -1,9 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://bav1fnp7nnrtb"]
+[gd_scene load_steps=12 format=3 uid="uid://bav1fnp7nnrtb"]
 
 [ext_resource type="Texture2D" uid="uid://djsipby6vkt7m" path="res://Scenes/Enemy/Cyclops/Art/tile_0109.png" id="1_c2807"]
 [ext_resource type="Script" path="res://Scenes/Enemy/Cyclops/Cyclops.gd" id="1_y7avk"]
+[ext_resource type="PackedScene" uid="uid://bt02nk3n64vcw" path="res://Scenes/Component/health_component.tscn" id="2_ufqtr"]
 [ext_resource type="Script" path="res://Scenes/Enemy/Slime/RayCast.gd" id="3_3htsb"]
-[ext_resource type="Script" path="res://Scenes/Enemy/Cyclops/EnemyHitbox.gd" id="3_qutvb"]
 [ext_resource type="Script" path="res://States/Enemy/EnemyState_machine.gd" id="4_50e7x"]
 [ext_resource type="Script" path="res://States/Enemy/Cyclops/CyclopsIdleState.gd" id="5_d5aji"]
 [ext_resource type="PackedScene" uid="uid://bon4d8w0olstg" path="res://Scenes/Bullet/Bullet.tscn" id="6_2d0pv"]
@@ -14,26 +14,18 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_e6hg8"]
 radius = 6.08276
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kpg64"]
-radius = 7.25
-height = 18.5
-
 [node name="Cyclops" type="CharacterBody2D" groups=["Enemy"]]
+scale = Vector2(3, 3)
 collision_layer = 2
 script = ExtResource("1_y7avk")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_ufqtr")]
 
 [node name="CyclopsSprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_c2807")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_e6hg8")
-
-[node name="HitBox" type="Area2D" parent="."]
-collision_layer = 2
-script = ExtResource("3_qutvb")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-shape = SubResource("CapsuleShape2D_kpg64")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 script = ExtResource("3_3htsb")
