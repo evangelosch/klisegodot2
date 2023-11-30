@@ -5,13 +5,8 @@ extends Enemy
 @export
 var speed: float = 220
 @onready
-var progress_bar : ProgressBar = $ProgressBar
+var health_component : HealthComponent = get_node("HealthComponent")
 
-var health: = 2:
-	set(value):
-		health = value
-		progress_bar.value = value
-
-func _input(event):
-	if event.is_action_pressed("damage"):
-		health -= 1
+func take_damage(damage_amount : int) -> void:
+	health_component.damage(damage_amount)
+	print_debug(health_component.current_health)

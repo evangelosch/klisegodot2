@@ -401,8 +401,6 @@ script = ExtResource("1_82juu")
 metadata/_edit_vertical_guides_ = []
 
 [node name="SwordHitBox" type="Area2D" parent="." node_paths=PackedStringArray("player", "sword_collision_shape")]
-collision_layer = 4
-collision_mask = 0
 script = ExtResource("2_ld1w5")
 player = NodePath("..")
 sword_collision_shape = NodePath("SwordCollisionShape")

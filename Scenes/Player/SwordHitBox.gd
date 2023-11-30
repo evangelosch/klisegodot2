@@ -1,17 +1,19 @@
+class_name SwordHitBox
 extends Area2D
 
 @export
 var player : Player
 @export
 var sword_collision_shape : SwordCollisionShape
-# Called when the node enters the scene tree for the first time.
+@export
+var damage : int = 1
+
+func _init():
+	collision_layer = 4
+	collision_mask = 0
+
 func _ready():
 	player.connect("player_direction", _on_player_direction_changed)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 func _on_player_direction_changed(facing_right : bool):
 	if facing_right:

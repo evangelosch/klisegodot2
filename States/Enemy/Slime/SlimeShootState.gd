@@ -10,7 +10,6 @@ var dash_state: EnemyState
 var timer = get_node("Timer")
 
 func enter():
-	print("shoot")
 	timer.connect("timeout", _on_timer_timeout)
 	timer.start()
 

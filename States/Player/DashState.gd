@@ -1,11 +1,8 @@
 extends State
 
-@export
-var run_state: State
+
 @export
 var idle_state: State
-@export
-var attack_state: State
 @export 
 var dash_speed: float = 10000  # The speed of the dash
 @export
@@ -41,7 +38,6 @@ func _on_dash_timer_timeout():
 func add_dash_effect():
 	var effect = dash_effect.instantiate()
 	effect.set_property(parent.position, animated_sprite.scale)
-	print(animated_sprite.scale)
 	get_tree().current_scene.add_child(effect)
 
 func process_physics(delta: float) -> State:

@@ -10,9 +10,10 @@ var idle_state: EnemyState
 var dash_state: EnemyState
 
 func enter():
-	print("entered follow state")
+	pass
+	#print("entered follow state")
 
-func process_frame(delta: float) -> EnemyState:
+func process_physics(delta: float) -> EnemyState:
 	parent.velocity = (player.position - parent.global_position).normalized() * parent.speed
 	parent.move_and_slide()
 	direction = (player.position - parent.global_position).normalized()
@@ -26,6 +27,6 @@ func process_frame(delta: float) -> EnemyState:
 		if not collider.is_in_group("Player"):
 			return self
 	if not parent.ray_cast.is_colliding():
-		if owner.health == 1:
+		if parent.health_component.current_health <= 5:
 				return dash_state
 	return null
