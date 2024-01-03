@@ -27,7 +27,7 @@ func enter():
 	animated_sprite = parent.get_node("PlayerBody").get_node("AnimatedSprite2D")
 	dash_timer.start()
 	var tween = get_tree().create_tween()
-	tween.tween_property(parent, "position", parent.position + parent.velocity * 0.8, 0.3)
+	tween.tween_property(parent, "position", parent.position + parent.velocity * 0.65, 0.3)
 	await tween.finished
 	dash_timer.stop()
 	#particles.emitting = false
@@ -40,5 +40,5 @@ func add_dash_effect():
 	effect.set_property(parent.position, animated_sprite.scale)
 	get_tree().current_scene.add_child(effect)
 
-func process_physics(delta: float) -> State:
+func process_physics(_delta: float) -> State:
 	return idle_state

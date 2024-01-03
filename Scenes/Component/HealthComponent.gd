@@ -5,7 +5,7 @@ extends Node
 var progress_bar : ProgressBar
 signal died
 @export
-var max_health : float = 30
+var max_health : float 
 var current_health : float
 
 

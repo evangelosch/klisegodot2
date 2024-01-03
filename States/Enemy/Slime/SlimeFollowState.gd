@@ -13,7 +13,7 @@ func enter():
 	pass
 	#print("entered follow state")
 
-func process_physics(delta: float) -> EnemyState:
+func process_physics(_delta: float) -> EnemyState:
 	parent.velocity = (player.position - parent.global_position).normalized() * parent.speed
 	parent.move_and_slide()
 	direction = (player.position - parent.global_position).normalized()
