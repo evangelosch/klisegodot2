@@ -58,20 +58,24 @@ size = Vector2(16.3333, 12.6667)
 [node name="Slime" type="CharacterBody2D" groups=["Enemy"]]
 scale = Vector2(3, 3)
 collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_4xukk")
 speed = 100.0
 
 [node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("progress_bar")]
 script = ExtResource("10_403vf")
 progress_bar = NodePath("../ProgressBarComponent")
+max_health = 10.0
 
 [node name="ProgressBarComponent" parent="." instance=ExtResource("11_l1jhj")]
 offset_left = -8.0
 offset_top = 9.0
 offset_right = 9.0
 offset_bottom = 13.0
+mouse_filter = 2
 max_value = 30.0
 show_percentage = false
+metadata/_edit_use_anchors_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tu1nf")
@@ -119,7 +123,7 @@ follow_state = NodePath("../Follow")
 wait_time = 1.5
 
 [node name="HurtBox" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 script = ExtResource("12_14r5s")
 
