@@ -12,6 +12,7 @@ var animation_tree : AnimationTree = get_node("AnimationTree")
 var player_sprite : AnimatedSprite2D = get_node("PlayerBody").get_node("AnimatedSprite2D")
 signal player_direction(facing_right : bool)
 
+
 func _ready() -> void:
 	# Initialize the state machine, passing a reference of the player to the states,
 	# that way they can move and react accordingly
