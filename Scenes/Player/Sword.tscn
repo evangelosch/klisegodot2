@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c8ym8xcmblvhj"]
+[gd_scene load_steps=6 format=3 uid="uid://binetr3rtx5rd"]
 
 [ext_resource type="Texture2D" uid="uid://bx7mx2anmx4qx" path="res://assets/espada 1.png" id="2_ft47r"]
 
@@ -99,13 +99,15 @@ texture = ExtResource("2_ft47r")
 offset = Vector2(60, -245)
 region_filter_clip_enabled = true
 
-[node name="SwordHitBox" type="Area2D" parent="Sprite2D" node_paths=PackedStringArray("sword", "sword_collision_shape")]
+[node name="SwordHitBox" type="Area2D" parent="Sprite2D"]
 scale = Vector2(20, 20)
 collision_layer = 4
 collision_mask = 0
 script = SubResource("GDScript_lwq4o")
-sword = NodePath("../..")
-sword_collision_shape = NodePath("SwordCollisionShape")
+sword = Object(Node2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"script":SubResource("GDScript_k8eib"))
+
+sword_collision_shape = Object(CollisionShape2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(8.66667, -8.66667),"rotation":0.804597,"scale":Vector2(1, 1),"skew":0.0,"shape":SubResource("CapsuleShape2D_kvn5c"),"disabled":false,"one_way_collision":false,"one_way_collision_margin":1.0,"script":SubResource("GDScript_mytm4"),"right_direction":Vector2(17.5, 0),"left_direction":Vector2(-17.5, 0))
+
 
 [node name="SwordCollisionShape" type="CollisionShape2D" parent="Sprite2D/SwordHitBox"]
 position = Vector2(8.66667, -8.66667)

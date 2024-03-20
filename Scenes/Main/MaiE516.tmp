@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bmsqjfxc4h4x"]
+[gd_scene load_steps=9 format=3 uid="uid://bmsqjfxc4h4x"]
 
 [ext_resource type="PackedScene" uid="uid://bh2g07jdr1y7e" path="res://Scenes/Player/Player.tscn" id="1_sfu5f"]
+[ext_resource type="Script" path="res://Scenes/Player/player.gd" id="2_2dbjw"]
 [ext_resource type="PackedScene" uid="uid://bqy4l2yuudcl2" path="res://Scenes/Enemy/Slime/Slime.tscn" id="3_d627e"]
+[ext_resource type="Script" path="res://Scenes/Main/FPS.gd" id="3_dgxjd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mj0td"]
 size = Vector2(28, 714)
@@ -47,11 +49,17 @@ shape = SubResource("RectangleShape2D_b4rv7")
 position = Vector2(0, 369)
 shape = SubResource("RectangleShape2D_sh6dn")
 
+[node name="Player" parent="." instance=ExtResource("1_sfu5f")]
+position = Vector2(754, 527)
+script = ExtResource("2_2dbjw")
+
+[node name="FPS" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("3_dgxjd")
+
 [node name="Slime" parent="." instance=ExtResource("3_d627e")]
 position = Vector2(611, 73)
 
 [node name="Slime2" parent="." instance=ExtResource("3_d627e")]
 position = Vector2(415, 244)
-
-[node name="Player" parent="." instance=ExtResource("1_sfu5f")]
-position = Vector2(895, 409)
