@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://bh2g07jdr1y7e"]
+[gd_scene load_steps=77 format=3 uid="uid://bh2g07jdr1y7e"]
 
 [ext_resource type="Script" path="res://Scenes/Player/Player.gd" id="1_82juu"]
 [ext_resource type="Script" path="res://States/Player/State_machine.gd" id="3_qgeuu"]
@@ -27,6 +27,13 @@
 [ext_resource type="Script" path="res://States/Player/ChargeAttack.gd" id="25_026av"]
 [ext_resource type="Script" path="res://States/Player/Shoot.gd" id="26_ufc4k"]
 [ext_resource type="PackedScene" uid="uid://bon4d8w0olstg" path="res://Scenes/Bullet/Bullet.tscn" id="30_uyvuf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_icr6q"]
+bg_color = Color(0.917647, 0.352941, 0.721569, 1)
+border_width_right = 30
+border_color = Color(0.227451, 0.917647, 0.815686, 1)
+expand_margin_left = 4.0
+shadow_color = Color(0.219608, 0.219608, 0.219608, 0.6)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qiye7"]
 atlas = ExtResource("20_21be1")
@@ -453,8 +460,10 @@ offset_top = 13.3333
 offset_right = 92.6667
 offset_bottom = 40.3333
 scale = Vector2(0.3, 0.3)
+theme_override_styles/background = SubResource("StyleBoxFlat_icr6q")
 max_value = 10.0
 step = 1.0
+show_percentage = false
 
 [node name="PlayerBody" type="Node2D" parent="."]
 

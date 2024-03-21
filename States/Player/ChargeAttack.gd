@@ -16,34 +16,35 @@ var required_hold_time = 0.5
 var is_attack_ready = false
 var charge_level = 0
 var charging = false
-# Function called every frame
+var input_direction: Vector2
+
 func enter() -> void:
-	pass
-# Function to perform the attack
+	$"../../ProgressBar".value = charge_level
+
+func exit() -> void:
+	charge_level = 0
+	$"../../ProgressBar".value = 0
+	print_debug("exit")
+func process_input(_event: InputEvent) -> State:
+	input_direction = parent.get_input_direction()
+	return null
+
 func process_frame(_delta: float) -> State:
 	if not Input.is_action_just_released("charge_attack"):
-		print_debug("Entered")
 		charge_level += 1 * _delta
 		$"../../ProgressBar".value = charge_level
 	else:	
 		charge_attack()
 		return idle_state
-	return self
-#func attack() -> State:
-	#charge_attack()
-	#return idle_state
+	return null
+
+func process_physics(_delta: float) -> State:
+	parent.velocity = input_direction * 200
+	parent.move_and_slide()
+	return null
 
 func charge_attack():
 	var player_mouse_position = parent.get_global_mouse_position()
 	var tween = get_tree().create_tween()
 	tween.tween_property(parent, "position", player_mouse_position , 0.1)
 	await tween.finished
-
-
-#func check_attack() -> State:
-	## Minimum time to hold for the attack
-	#var required_hold_time = 0.2
-	#if attack_pressed_time >= required_hold_time:
-		#return charge_attack
-	#else:
-		#return attack_state
