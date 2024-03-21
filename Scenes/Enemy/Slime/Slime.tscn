@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bqy4l2yuudcl2"]
+[gd_scene load_steps=20 format=3 uid="uid://bqy4l2yuudcl2"]
 
 [ext_resource type="Script" path="res://Scenes/Enemy/Slime/Slime.gd" id="1_4xukk"]
 [ext_resource type="Texture2D" uid="uid://ih7ktua64ab7" path="res://Scenes/Enemy/Slime/Art/slime.png" id="1_c7tes"]
@@ -9,6 +9,9 @@
 [ext_resource type="Script" path="res://States/Enemy/Slime/SlimeFollowState.gd" id="5_555ee"]
 [ext_resource type="Script" path="res://States/Enemy/Slime/SlimeDashState.gd" id="6_xee7k"]
 [ext_resource type="PackedScene" uid="uid://bon4d8w0olstg" path="res://Scenes/Bullet/Bullet.tscn" id="7_v37f2"]
+[ext_resource type="Script" path="res://Scenes/Component/HealthComponent.gd" id="10_403vf"]
+[ext_resource type="PackedScene" uid="uid://dwhr711g0ae4v" path="res://Scenes/Component/progress_bar_component.tscn" id="11_l1jhj"]
+[ext_resource type="Script" path="res://Scenes/Scripts/HurtBox.gd" id="12_14r5s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ghjh7"]
 atlas = ExtResource("1_c7tes")
@@ -49,10 +52,30 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_6txts"]
 radius = 6.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2fi06"]
+size = Vector2(16.3333, 12.6667)
+
 [node name="Slime" type="CharacterBody2D" groups=["Enemy"]]
+scale = Vector2(3, 3)
 collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_4xukk")
 speed = 100.0
+
+[node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("progress_bar")]
+script = ExtResource("10_403vf")
+progress_bar = NodePath("../ProgressBarComponent")
+max_health = 10.0
+
+[node name="ProgressBarComponent" parent="." instance=ExtResource("11_l1jhj")]
+offset_left = -8.0
+offset_top = 9.0
+offset_right = 9.0
+offset_bottom = 13.0
+mouse_filter = 2
+max_value = 30.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tu1nf")
@@ -64,15 +87,6 @@ frame_progress = 0.919286
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.25, 2)
 shape = SubResource("CircleShape2D_6txts")
-
-[node name="ProgressBar" type="ProgressBar" parent="."]
-offset_left = -7.5
-offset_top = -10.5
-offset_right = 66.5
-offset_bottom = 16.5
-scale = Vector2(0.2, 0.2)
-max_value = 2.0
-value = 2.0
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 script = ExtResource("3_ab8wg")
@@ -106,4 +120,13 @@ script = ExtResource("6_xee7k")
 follow_state = NodePath("../Follow")
 
 [node name="Timer" type="Timer" parent="EnemyState_machine/Dash"]
-wait_time = 0.5
+wait_time = 1.5
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("12_14r5s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0.166667, 2)
+shape = SubResource("RectangleShape2D_2fi06")

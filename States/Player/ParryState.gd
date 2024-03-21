@@ -26,16 +26,18 @@ func process_physics(delta: float) -> State:
 		parent.velocity = dash_distance * dash_direction * delta
 		parent.move_and_collide(parent.velocity)
 		for index in parent.get_slide_collision_count():
-			var collision = parent.get_slide_collision(index)
+			collision = parent.get_slide_collision(index)
 			var body = collision.get_collider()
-			print(body)
 			if body.name == target_enemy.name:
 				parent.velocity = collision.get_position()
 				is_dashing = false
 				#parent.move_and_slide()
 				handle_dash_collision_with_enemy()
+		#return idle_state
+	if parent.get_input_direction() == Vector2.ZERO:
 		return idle_state
-	return idle_state
+	else:
+		return run_state
 
 func start_dash():
 	for enemy in get_tree().get_nodes_in_group("Enemy"):

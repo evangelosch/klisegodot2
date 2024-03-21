@@ -1,7 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://bywyh67iq1jd7"]
+[gd_scene load_steps=3 format=3 uid="uid://bd4rm7wkrq7sp"]
 
 [ext_resource type="Texture2D" uid="uid://bxxq1qjo4atd3" path="res://assets/Individual Sprites/adventurer-run-01.png" id="1_4o1x8"]
-[ext_resource type="Script" path="res://Scenes/Player/DashEffect.gd" id="2_htgm4"]
+
+[sub_resource type="GDScript" id="GDScript_qo2t8"]
+script/source = "extends Sprite2D
+
+
+func _ready():
+	dashing()
+ 
+func set_property(tx_pos, tx_scale):
+	position = tx_pos
+	scale = tx_scale
+ 
+func dashing():
+	var tween_fade = get_tree().create_tween()
+	tween_fade.tween_property(self, \"self_modulate\",Color(1, 1, 1, 0), 0.4)
+	await tween_fade.finished
+	queue_free()
+"
 
 [node name="DashEffect" type="Sprite2D"]
 modulate = Color(0.462745, 0.462745, 0.462745, 1)
@@ -9,4 +26,4 @@ show_behind_parent = true
 texture = ExtResource("1_4o1x8")
 region_enabled = true
 region_rect = Rect2(12.0662, 3.07903, 33.3553, 36.4342)
-script = ExtResource("2_htgm4")
+script = SubResource("GDScript_qo2t8")

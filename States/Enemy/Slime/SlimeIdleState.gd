@@ -10,5 +10,5 @@ var direction
 func enter():
 	pass
 
-func process_frame(delta: float) -> EnemyState:
+func process_frame(_delta: float) -> EnemyState:
 		return follow_state

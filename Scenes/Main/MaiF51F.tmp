@@ -1,0 +1,78 @@
+[gd_scene load_steps=7 format=3 uid="uid://bmsqjfxc4h4x"]
+
+[ext_resource type="PackedScene" uid="uid://bqy4l2yuudcl2" path="res://Scenes/Enemy/Slime/Slime.tscn" id="3_d627e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mj0td"]
+size = Vector2(28, 714)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nxnds"]
+size = Vector2(30, 709)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b4rv7"]
+size = Vector2(1277, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sh6dn"]
+size = Vector2(1280, 15)
+
+[sub_resource type="GDScript" id="GDScript_3wi6t"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	disabled = true
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+<<<<<<<< HEAD:Scenes/Main/FPS.gd
+func _process(delta):
+	var fps = Engine.get_frames_per_second()
+	text = \"FPS: \" + str(fps) 
+========
+func _process(_delta):
+	pass
+>>>>>>>> 04ad2db24d884662c08ccfe3feed20ff68c4302d:Scenes/Player/SwordCollisionShape.gd
+"
+
+[node name="Main" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 356)
+process_callback = 0
+limit_left = -5
+limit_top = 0
+limit_right = 1280
+limit_bottom = 715
+limit_smoothed = true
+editor_draw_limits = true
+
+[node name="ScreenBoundaries" type="StaticBody2D" parent="Camera2D"]
+collision_layer = 0
+collision_mask = 0
+
+[node name="RightWallCollision" type="CollisionShape2D" parent="Camera2D/ScreenBoundaries"]
+position = Vector2(655, -1)
+shape = SubResource("RectangleShape2D_mj0td")
+
+[node name="LeftWallCollision" type="CollisionShape2D" parent="Camera2D/ScreenBoundaries"]
+position = Vector2(-656, 3.5)
+shape = SubResource("RectangleShape2D_nxnds")
+
+[node name="UpWallCollision" type="CollisionShape2D" parent="Camera2D/ScreenBoundaries"]
+position = Vector2(-0.5, -377)
+shape = SubResource("RectangleShape2D_b4rv7")
+
+[node name="DownWallCollision" type="CollisionShape2D" parent="Camera2D/ScreenBoundaries"]
+position = Vector2(0, 369)
+shape = SubResource("RectangleShape2D_sh6dn")
+
+[node name="FPS" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+script = SubResource("GDScript_3wi6t")
+
+[node name="Slime" parent="." instance=ExtResource("3_d627e")]
+position = Vector2(611, 73)
+
+[node name="Slime2" parent="." instance=ExtResource("3_d627e")]
+position = Vector2(415, 244)

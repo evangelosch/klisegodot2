@@ -10,7 +10,7 @@ var idle_state: EnemyState
 func enter():
 	pass
 
-func process_frame(delta: float) -> EnemyState:
+func process_physics(delta: float) -> EnemyState:
 	parent.velocity = (player.position - parent.global_position).normalized() * parent.speed
 	parent.move_and_slide()
 	direction = (player.position - parent.global_position).normalized()

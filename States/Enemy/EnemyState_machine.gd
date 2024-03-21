@@ -9,7 +9,6 @@ var current_state: EnemyState
 func init(parent: Enemy) -> void:
 	for child in get_children():
 		child.parent = parent
-	print(starting_state)
 	# Initialize to the default state
 	change_state(starting_state)
 
@@ -19,7 +18,6 @@ func change_state(new_state: EnemyState) -> void:
 		current_state.exit()
 
 	current_state = new_state
-	print(current_state)
 	current_state.enter()
 	
 # Pass through functions for the Player to call,
