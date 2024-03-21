@@ -1,6 +1,6 @@
 [gd_scene load_steps=77 format=3 uid="uid://bh2g07jdr1y7e"]
 
-[ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_cbt88"]
+[ext_resource type="Script" path="res://Scenes/Player/Player.gd" id="1_cbt88"]
 [ext_resource type="Script" path="res://States/Player/State_machine.gd" id="3_qgeuu"]
 [ext_resource type="Texture2D" uid="uid://cuoekfuow48hc" path="res://assets/Individual Sprites/adventurer-attack2-00.png" id="4_mx3um"]
 [ext_resource type="Script" path="res://States/Player/RunState.gd" id="4_v6tg0"]
