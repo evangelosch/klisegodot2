@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://baelopc2lwk4t"]
+
+[node name="NavigationAgentComponent" type="NavigationAgent2D"]

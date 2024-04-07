@@ -17,23 +17,24 @@ func enter():
 	randomnum = rng.randf()
 
 func process_physics(_delta: float) -> EnemyState:
-	parent.velocity = (get_circle_position(randomnum) - parent.global_position).normalized() * parent.speed
-	parent.move_and_slide()
-	direction = (player.position - parent.global_position).normalized()
-	parent.ray_cast.target_position = direction * 30
-	#if parent.ray_cast.is_colliding():
-		#var collider = parent.ray_cast.get_collider()
-		#if collider.is_in_group("Player"):
-			#return shoot_state
-	#if parent.ray_cast.is_colliding():
-		#var collider = parent.ray_cast.get_collider()
-		#if not collider.is_in_group("Player"):
-			#return self
-		#return dash_state
-	#if not parent.ray_cast.is_colliding():
-		#if parent.health_component.current_health <= 5:
-				#return dash_state
 	return null
+	#parent.velocity = (get_circle_position(randomnum) - parent.global_position).normalized() * parent.speed
+	#parent.move_and_slide()
+	#direction = (player.position - parent.global_position).normalized()
+	#parent.ray_cast.target_position = direction * 30
+	##if parent.ray_cast.is_colliding():
+		##var collider = parent.ray_cast.get_collider()
+		##if collider.is_in_group("Player"):
+			##return shoot_state
+	##if parent.ray_cast.is_colliding():
+		##var collider = parent.ray_cast.get_collider()
+		##if not collider.is_in_group("Player"):
+			##return self
+		##return dash_state
+	##if not parent.ray_cast.is_colliding():
+		##if parent.health_component.current_health <= 5:
+				##return dash_state
+	#return null
 
 func get_circle_position(random):
 	var kill_circle_centre = player.global_position

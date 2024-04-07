@@ -18,26 +18,32 @@ var input_direction: Vector2
 
 var speed = 400  # Bullet speed
 var fire_rate = 0.5  # Time between shots (seconds)
-
+var can_shoot = true
 #
 #func _ready():
 	#animation_tree.animation_finished.connect(_on_animation_tree_animation_finished)
 
 
 func enter():
-	timer.connect("timeout", _on_timer_timeout)
-	#timer.start()
+	if not timer.is_connected("timeout", _on_timer_timeout):
+		timer.connect("timeout", _on_timer_timeout)
+	if can_shoot:
+		shoot()
+		can_shoot = false
+		timer.start()
+
+
 
 func process_physics(_delta: float) -> State:
-	shoot()
+	if not parent.get_input_direction() == Vector2.ZERO:
+		return run_state
 	return idle_state
 
 func exit():
-	timer.disconnect("timeout", _on_timer_timeout)
-	timer.stop()
+	pass
 
 func _on_timer_timeout():
-	shoot()
+	can_shoot = true
 
 func shoot() -> State:
 	var mouse_position = parent.get_global_mouse_position()
@@ -47,4 +53,4 @@ func shoot() -> State:
 	bullet.direction = direction
 	get_tree().current_scene.call_deferred("add_child", bullet)
 	
-	return idle_state
+	return null

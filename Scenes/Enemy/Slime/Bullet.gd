@@ -16,7 +16,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 func on_bullet_area_entered(area):
 	 # Check if the entered area is a hurtbox
-	if area.name == "HurtBox":
+	if area.name == "HurtBoxComponent":
 	# Assuming the HealthComponent is attached to the parent of the hurtbox
 		var enemy = area.get_parent()
 		print_debug(enemy)
