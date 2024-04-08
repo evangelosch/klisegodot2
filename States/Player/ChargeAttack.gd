@@ -17,6 +17,7 @@ var input_direction: Vector2
 @onready var aura_particles = $"../../CPUParticles2D"
 
 func enter() -> void:
+	
 	aura_particles.modulate = Color(1, 1, 1, 1)
 	aura_particles.scale_amount_min = 1
 	aura_particles.scale_amount_max = 1
@@ -26,11 +27,13 @@ func enter() -> void:
 
 
 func exit() -> void:
+	
 	aura_particles.emitting = false
 	charging = false
 
 
 func process_physics(_delta: float) -> State:
+	
 	if Input.is_action_pressed("charge_attack") and charging:
 		charge_time += _delta
 		update_aura_intensity(charge_time / charge_threshold)
@@ -60,16 +63,19 @@ func charge_attack():
 	tween.tween_property(parent, "position", player_mouse_position, 0.1)
 	await tween.finished
 
+
 func update_aura_intensity(ratio: float):
 	aura_particles.visible = true
 	aura_particles.emitting = true
 	# Adjust the aura's appearance based on the charge ratio
 	aura_particles.scale = Vector2(1, 1) * (2.0 + ratio)
 
+
 func evaluate_charge():
 	if charge_time < perfect_start_time:
 		print_debug("Good")
 		charge_attack()
+		
 	elif charge_time >= perfect_start_time and charge_time <= perfect_end_time:
 		print_debug("Perfect")
 		charge_attack()
@@ -77,9 +83,9 @@ func evaluate_charge():
 	charge_time = 0.0
 	aura_particles.emitting = false
 
+
 func show_perfect_timing_indicator():
 	# Example: Change aura color to indicate perfect timing
 	aura_particles.scale_amount_min = 4
 	aura_particles.scale_amount_max = 4
 	aura_particles.modulate = Color(1, 0, 0, 1)  # Change to red for "perfect" window
-	
