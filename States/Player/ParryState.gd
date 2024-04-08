@@ -1,24 +1,21 @@
 extends State
 
 
-@export
-var run_state: State
-@export
-var idle_state: State
-@export
-var attack_state: State
-@export
-var dash_state: State
-var input_direction: Vector2
+@export var run_state: State
+@export var idle_state: State
+@export var attack_state: State
+@export var dash_state: State
+
 var dash_direction: Vector2
 var is_dashing = false
-var dash_distance = 30000
+var dash_distance: int = 30000
 var target_enemy: Enemy
 var collision
 
 
 func enter():
 	collision = false
+
 
 func process_physics(delta: float) -> State:
 	start_dash()

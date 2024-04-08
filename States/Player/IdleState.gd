@@ -27,6 +27,7 @@ func process_input(_event: InputEvent) -> State:
 		
 	return null
 
+
 func process_physics(delta: float) -> State:
 	
 	if parent.get_input_direction() != Vector2.ZERO:
