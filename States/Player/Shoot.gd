@@ -1,43 +1,42 @@
 extends State
 
-@export
-var run_state: State
-@export
-var idle_state: State
-@export
-var next_state: State
-@onready
-var animation_tree = get_parent().get_parent().get_node("AnimationTree")
-@export 
-var bullet_node: PackedScene
-@onready
-var timer = get_node("Timer")
+@export var run_state: State
+@export var idle_state: State
+@export var next_state: State
+@export var bullet_node: PackedScene
+
+@onready var animation_tree = get_parent().get_parent().get_node("AnimationTree")
+@onready var timer = get_node("Timer")
 
 var animation_ended = false
 var input_direction: Vector2
-
 var speed = 400  # Bullet speed
 var fire_rate = 0.5  # Time between shots (seconds)
-
-#
-#func _ready():
-	#animation_tree.animation_finished.connect(_on_animation_tree_animation_finished)
+var can_shoot = true
 
 
 func enter():
-	timer.connect("timeout", _on_timer_timeout)
-	#timer.start()
+	
+	if not timer.is_connected("timeout", _on_timer_timeout):
+		timer.connect("timeout", _on_timer_timeout)
+		
+	if can_shoot:
+		shoot()
+		can_shoot = false
+		timer.start()
+
 
 func process_physics(_delta: float) -> State:
-	shoot()
+	
+	if not parent.get_input_direction() == Vector2.ZERO:
+		return run_state
+		
 	return idle_state
 
-func exit():
-	timer.disconnect("timeout", _on_timer_timeout)
-	timer.stop()
 
 func _on_timer_timeout():
-	shoot()
+	can_shoot = true
+
 
 func shoot() -> State:
 	var mouse_position = parent.get_global_mouse_position()
@@ -47,4 +46,4 @@ func shoot() -> State:
 	bullet.direction = direction
 	get_tree().current_scene.call_deferred("add_child", bullet)
 	
-	return idle_state
+	return null

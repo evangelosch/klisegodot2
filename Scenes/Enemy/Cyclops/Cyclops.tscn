@@ -2,15 +2,15 @@
 
 [ext_resource type="Texture2D" uid="uid://djsipby6vkt7m" path="res://Scenes/Enemy/Cyclops/Art/tile_0109.png" id="1_c2807"]
 [ext_resource type="Script" path="res://Scenes/Enemy/Cyclops/Cyclops.gd" id="1_y7avk"]
-[ext_resource type="PackedScene" uid="uid://bt02nk3n64vcw" path="res://Scenes/Component/health_component.tscn" id="2_ufqtr"]
+[ext_resource type="PackedScene" uid="uid://bt02nk3n64vcw" path="res://Scenes/Component/HealthComponent.tscn" id="2_ufqtr"]
 [ext_resource type="Script" path="res://Scenes/Enemy/Slime/RayCast.gd" id="3_3htsb"]
-[ext_resource type="Script" path="res://States/Enemy/EnemyState_machine.gd" id="4_50e7x"]
+[ext_resource type="Script" path="res://States/Enemy/EnemyStateMachine.gd" id="4_50e7x"]
 [ext_resource type="Script" path="res://States/Enemy/Cyclops/CyclopsIdleState.gd" id="5_d5aji"]
 [ext_resource type="PackedScene" uid="uid://bon4d8w0olstg" path="res://Scenes/Bullet/Bullet.tscn" id="6_2d0pv"]
 [ext_resource type="Script" path="res://States/Enemy/Cyclops/CyclopsShootState.gd" id="6_5u2uq"]
 [ext_resource type="Script" path="res://States/Enemy/Cyclops/CyclopsFollowState.gd" id="8_5ikqv"]
 [ext_resource type="Script" path="res://States/Enemy/Cyclops/CyclopsDashState.gd" id="9_2luud"]
-[ext_resource type="PackedScene" uid="uid://dwhr711g0ae4v" path="res://Scenes/Component/progress_bar_component.tscn" id="10_xeubk"]
+[ext_resource type="PackedScene" uid="uid://dwhr711g0ae4v" path="res://Scenes/Component/ProgressBarComponent.tscn" id="10_xeubk"]
 [ext_resource type="Script" path="res://Scenes/Scripts/HurtBox.gd" id="12_uiwvw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e6hg8"]

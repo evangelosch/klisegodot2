@@ -2,14 +2,12 @@ class_name Enemy
 extends CharacterBody2D
 
 @onready
-var state_machine = get_node("EnemyState_machine")
+var state_machine = get_node("EnemyStateMachine")
 @onready
 var ray_cast : RayCast2D = get_node("RayCast2D")
 var is_mouse_over = false
 
 func _ready() -> void:
-	# Initialize the state machine, passing a reference of the player to the states,
-	# that way they can move and react accordingly
 	connect("mouse_entered", _on_mouse_entered)
 	connect("mouse_exited", _on_mouse_exited)
 	self.input_pickable = true

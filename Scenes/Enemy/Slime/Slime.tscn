@@ -2,16 +2,17 @@
 
 [ext_resource type="Script" path="res://Scenes/Enemy/Slime/Slime.gd" id="1_4xukk"]
 [ext_resource type="Texture2D" uid="uid://ih7ktua64ab7" path="res://Scenes/Enemy/Slime/Art/slime.png" id="1_c7tes"]
+[ext_resource type="PackedScene" uid="uid://der5vh7w075md" path="res://NavigationAgentComponent.tscn" id="2_opyeg"]
 [ext_resource type="Script" path="res://States/Enemy/Slime/SlimeIdleState.gd" id="3_8tnbj"]
 [ext_resource type="Script" path="res://Scenes/Enemy/Slime/RayCast.gd" id="3_ab8wg"]
-[ext_resource type="Script" path="res://States/Enemy/EnemyState_machine.gd" id="4_2juvd"]
+[ext_resource type="Script" path="res://States/Enemy/EnemyStateMachine.gd" id="4_2juvd"]
 [ext_resource type="Script" path="res://States/Enemy/Slime/SlimeShootState.gd" id="4_vj4al"]
 [ext_resource type="Script" path="res://States/Enemy/Slime/SlimeFollowState.gd" id="5_555ee"]
 [ext_resource type="Script" path="res://States/Enemy/Slime/SlimeDashState.gd" id="6_xee7k"]
 [ext_resource type="PackedScene" uid="uid://bon4d8w0olstg" path="res://Scenes/Bullet/Bullet.tscn" id="7_v37f2"]
 [ext_resource type="Script" path="res://Scenes/Component/HealthComponent.gd" id="10_403vf"]
-[ext_resource type="PackedScene" uid="uid://dwhr711g0ae4v" path="res://Scenes/Component/progress_bar_component.tscn" id="11_l1jhj"]
-[ext_resource type="Script" path="res://Scenes/Scripts/HurtBox.gd" id="12_14r5s"]
+[ext_resource type="PackedScene" uid="uid://dwhr711g0ae4v" path="res://Scenes/Component/ProgressBarComponent.tscn" id="11_l1jhj"]
+[ext_resource type="PackedScene" uid="uid://becb2tywcr5tt" path="res://Scenes/Component/hurt_box_component.tscn" id="13_qfi38"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ghjh7"]
 atlas = ExtResource("1_c7tes")
@@ -52,15 +53,17 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_6txts"]
 radius = 6.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2fi06"]
-size = Vector2(16.3333, 12.6667)
-
-[node name="Slime" type="CharacterBody2D" groups=["Enemy"]]
+[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("navigation_agent") groups=["Enemy"]]
 scale = Vector2(3, 3)
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_4xukk")
 speed = 100.0
+navigation_agent = NodePath("NavigationAgentComponent")
+
+[node name="NavigationAgentComponent" parent="." instance=ExtResource("2_opyeg")]
+avoidance_layers = 0
+avoidance_mask = 0
 
 [node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("progress_bar")]
 script = ExtResource("10_403vf")
@@ -91,42 +94,38 @@ shape = SubResource("CircleShape2D_6txts")
 [node name="RayCast2D" type="RayCast2D" parent="."]
 script = ExtResource("3_ab8wg")
 
-[node name="EnemyState_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+[node name="EnemyStateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state", "current_state")]
 script = ExtResource("4_2juvd")
 starting_state = NodePath("Idle")
+current_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="EnemyState_machine" node_paths=PackedStringArray("shoot_state", "follow_state")]
+[node name="Idle" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("shoot_state", "follow_state")]
 script = ExtResource("3_8tnbj")
-shoot_state = NodePath("../Shoot")
+shoot_state = NodePath(".")
 follow_state = NodePath("../Follow")
 
-[node name="Shoot" type="Node" parent="EnemyState_machine" node_paths=PackedStringArray("follow_state", "dash_state")]
+[node name="Shoot" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("follow_state", "dash_state")]
 script = ExtResource("4_vj4al")
 follow_state = NodePath("../Follow")
-dash_state = NodePath("../Dash")
+dash_state = NodePath("../Idle")
 bullet_node = ExtResource("7_v37f2")
 
-[node name="Timer" type="Timer" parent="EnemyState_machine/Shoot"]
+[node name="Timer" type="Timer" parent="EnemyStateMachine/Shoot"]
 wait_time = 0.75
 
-[node name="Follow" type="Node" parent="EnemyState_machine" node_paths=PackedStringArray("shoot_state", "idle_state", "dash_state")]
+[node name="Follow" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("shoot_state", "idle_state", "dash_state")]
 script = ExtResource("5_555ee")
-shoot_state = NodePath("../Shoot")
+shoot_state = NodePath("../Idle")
 idle_state = NodePath("../Idle")
-dash_state = NodePath("../Dash")
+dash_state = NodePath("../Idle")
 
-[node name="Dash" type="Node" parent="EnemyState_machine" node_paths=PackedStringArray("follow_state")]
+[node name="Dash" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("follow_state")]
 script = ExtResource("6_xee7k")
 follow_state = NodePath("../Follow")
 
-[node name="Timer" type="Timer" parent="EnemyState_machine/Dash"]
+[node name="Timer" type="Timer" parent="EnemyStateMachine/Dash"]
 wait_time = 1.5
 
-[node name="HurtBox" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 4
-script = ExtResource("12_14r5s")
+[node name="HurtBoxComponent" parent="." instance=ExtResource("13_qfi38")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(0.166667, 2)
-shape = SubResource("RectangleShape2D_2fi06")
+[connection signal="velocity_computed" from="NavigationAgentComponent" to="." method="_on_navigation_agent_component_velocity_computed"]

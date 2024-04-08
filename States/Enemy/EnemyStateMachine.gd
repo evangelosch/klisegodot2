@@ -2,6 +2,7 @@ extends Node
 
 @export
 var starting_state: EnemyState
+@export
 var current_state: EnemyState
 
 # Initialize the state machine by giving each child state a reference to the

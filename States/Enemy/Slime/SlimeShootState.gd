@@ -32,3 +32,6 @@ func shoot() -> EnemyState:
 	if not parent.ray_cast.is_colliding():
 		return parent.state_machine.change_state(follow_state)
 	return null
+
+func process_frame(_delta: float) -> EnemyState:
+		return null

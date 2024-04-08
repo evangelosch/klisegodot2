@@ -1,0 +1,132 @@
+[gd_scene load_steps=20 format=3 uid="uid://bqy4l2yuudcl2"]
+
+[ext_resource type="Script" path="res://Scenes/Enemy/Slime/Slime.gd" id="1_4xukk"]
+[ext_resource type="Texture2D" uid="uid://ih7ktua64ab7" path="res://Scenes/Enemy/Slime/Art/slime.png" id="1_c7tes"]
+[ext_resource type="PackedScene" uid="uid://der5vh7w075md" path="res://NavigationAgentComponent.tscn" id="2_opyeg"]
+[ext_resource type="Script" path="res://States/Enemy/Slime/SlimeIdleState.gd" id="3_8tnbj"]
+[ext_resource type="Script" path="res://Scenes/Enemy/Slime/RayCast.gd" id="3_ab8wg"]
+[ext_resource type="Script" path="res://States/Enemy/EnemyStateMachine.gd" id="4_2juvd"]
+[ext_resource type="Script" path="res://States/Enemy/Slime/SlimeShootState.gd" id="4_vj4al"]
+[ext_resource type="Script" path="res://States/Enemy/Slime/SlimeFollowState.gd" id="5_555ee"]
+[ext_resource type="Script" path="res://States/Enemy/Slime/SlimeDashState.gd" id="6_xee7k"]
+[ext_resource type="PackedScene" uid="uid://bon4d8w0olstg" path="res://Scenes/Bullet/Bullet.tscn" id="7_v37f2"]
+[ext_resource type="Script" path="res://Scenes/Component/HealthComponent.gd" id="10_403vf"]
+[ext_resource type="PackedScene" uid="uid://dwhr711g0ae4v" path="res://Scenes/Component/ProgressBarComponent.tscn" id="11_l1jhj"]
+[ext_resource type="PackedScene" uid="uid://becb2tywcr5tt" path="res://Scenes/Component/hurt_box_component.tscn" id="13_qfi38"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghjh7"]
+atlas = ExtResource("1_c7tes")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8tnhu"]
+atlas = ExtResource("1_c7tes")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jr3ks"]
+atlas = ExtResource("1_c7tes")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5g5gf"]
+atlas = ExtResource("1_c7tes")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tu1nf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghjh7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8tnhu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jr3ks")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5g5gf")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6txts"]
+radius = 6.0
+
+[node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("navigation_agent") groups=["Enemy"]]
+scale = Vector2(3, 3)
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_4xukk")
+speed = 100.0
+navigation_agent = NodePath("NavigationAgentComponent")
+
+[node name="NavigationAgentComponent" parent="." instance=ExtResource("2_opyeg")]
+target_desired_distance = 75.03
+avoidance_layers = 0
+avoidance_mask = 0
+
+[node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("progress_bar")]
+script = ExtResource("10_403vf")
+progress_bar = NodePath("../ProgressBarComponent")
+max_health = 10.0
+
+[node name="ProgressBarComponent" parent="." instance=ExtResource("11_l1jhj")]
+offset_left = -8.0
+offset_top = 9.0
+offset_right = 9.0
+offset_bottom = 13.0
+mouse_filter = 2
+max_value = 30.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_tu1nf")
+animation = &"idle"
+autoplay = "idle"
+frame = 1
+frame_progress = 0.919286
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.25, 2)
+shape = SubResource("CircleShape2D_6txts")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+script = ExtResource("3_ab8wg")
+
+[node name="EnemyStateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state", "current_state")]
+script = ExtResource("4_2juvd")
+starting_state = NodePath("Idle")
+current_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("shoot_state", "follow_state")]
+script = ExtResource("3_8tnbj")
+shoot_state = NodePath(".")
+follow_state = NodePath("../Follow")
+
+[node name="Shoot" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("follow_state", "dash_state")]
+script = ExtResource("4_vj4al")
+follow_state = NodePath("../Follow")
+dash_state = NodePath("../Idle")
+bullet_node = ExtResource("7_v37f2")
+
+[node name="Timer" type="Timer" parent="EnemyStateMachine/Shoot"]
+wait_time = 0.75
+
+[node name="Follow" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("shoot_state", "idle_state", "dash_state")]
+script = ExtResource("5_555ee")
+shoot_state = NodePath("../Idle")
+idle_state = NodePath("../Idle")
+dash_state = NodePath("../Idle")
+
+[node name="Dash" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("follow_state")]
+script = ExtResource("6_xee7k")
+follow_state = NodePath("../Follow")
+
+[node name="Timer" type="Timer" parent="EnemyStateMachine/Dash"]
+wait_time = 1.5
+
+[node name="HurtBoxComponent" parent="." instance=ExtResource("13_qfi38")]
+
+[connection signal="velocity_computed" from="NavigationAgentComponent" to="." method="_on_navigation_agent_component_velocity_computed"]

@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://der5vh7w075md"]
+
+[node name="NavigationAgentComponent" type="NavigationAgent2D"]
+debug_enabled = true
