@@ -62,6 +62,7 @@ speed = 100.0
 navigation_agent = NodePath("NavigationAgentComponent")
 
 [node name="NavigationAgentComponent" parent="." instance=ExtResource("2_opyeg")]
+target_desired_distance = 75.03
 avoidance_layers = 0
 avoidance_mask = 0
 

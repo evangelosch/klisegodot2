@@ -528,8 +528,8 @@ bullet_node = ExtResource("30_uyvuf")
 position = Vector2(0.666667, 0.666667)
 emitting = false
 lifetime = 0.01
-emission_shape = 1
-emission_sphere_radius = 28.73
+emission_shape = 2
+emission_sphere_radius = 5.0
 spread = 180.0
 gravity = Vector2(2, 0)
 

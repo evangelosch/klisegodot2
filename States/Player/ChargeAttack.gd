@@ -6,10 +6,6 @@ extends State
 @export var next_state: State
 
 # Charge mechanics
-var charge_speed = 400
-var hold_time = 0.0
-var required_hold_time = 0.5
-var is_attack_ready = false
 var charging = false
 var charge_time = 0.0
 var charge_threshold = 2.0  # Max charge time
@@ -19,7 +15,6 @@ var input_direction: Vector2
 
 # Node references
 @onready var aura_particles = $"../../CPUParticles2D"
-@onready var timer = $Timer
 
 func enter() -> void:
 	aura_particles.modulate = Color(1, 1, 1, 1)
@@ -29,19 +24,13 @@ func enter() -> void:
 	charge_time = 0.0
 	charging = true
 
+
 func exit() -> void:
-	timer.stop()
 	aura_particles.emitting = false
 	charging = false
-	aura_particles.modulate = Color(0, 0, 0, 0)
-	#aura_particles.scale_amount_min = 1
-	#aura_particles.scale_amount_max = 1
 
-func process_input(_event: InputEvent) -> State:
-	input_direction = parent.get_input_direction()
-	return null
 
-func process_frame(_delta: float) -> State:
+func process_physics(_delta: float) -> State:
 	if Input.is_action_pressed("charge_attack") and charging:
 		charge_time += _delta
 		update_aura_intensity(charge_time / charge_threshold)
@@ -49,19 +38,20 @@ func process_frame(_delta: float) -> State:
 		# Trigger indication for perfect timing
 		if charge_time >= perfect_start_time and charge_time <= perfect_end_time:
 			show_perfect_timing_indicator()  # Call a method to show the "perfect" indication
-		
+			
+		if charge_time >= charge_threshold:
+			aura_particles.emitting = false
+			return idle_state
+			
 	elif Input.is_action_just_released("charge_attack") and charging:
 		evaluate_charge()
-		charge_attack()
 		return idle_state
 	
-	return null
-
-
-func process_physics(_delta: float) -> State:
-	parent.velocity = input_direction * 200
+	input_direction = parent.get_input_direction()
+	parent.velocity = input_direction * (move_speed / 2)
 	parent.move_and_slide()
 	return null
+
 
 func charge_attack():
 	# Logic for executing the charged attack
@@ -79,10 +69,10 @@ func update_aura_intensity(ratio: float):
 func evaluate_charge():
 	if charge_time < perfect_start_time:
 		print_debug("Good")
+		charge_attack()
 	elif charge_time >= perfect_start_time and charge_time <= perfect_end_time:
 		print_debug("Perfect")
-	else:  # charge_time > perfect_end_time
-		print_debug("Miss")
+		charge_attack()
 	# Reset charge time and stop emitting particles after evaluation
 	charge_time = 0.0
 	aura_particles.emitting = false
