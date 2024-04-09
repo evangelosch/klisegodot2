@@ -509,11 +509,13 @@ run_state = NodePath("../Run")
 idle_state = NodePath("../Idle")
 dash_state = NodePath("../Dash")
 
-[node name="ChargeAttack" type="Node" parent="State_machine" node_paths=PackedStringArray("run_state", "idle_state", "next_state")]
+[node name="ChargeAttack" type="Node" parent="State_machine" node_paths=PackedStringArray("run_state", "idle_state", "next_state", "charge_execution_state")]
 script = ExtResource("25_026av")
 run_state = NodePath("../Run")
 idle_state = NodePath("../Idle")
 next_state = NodePath("../Idle")
+charge_execution_state = NodePath("")
+move_speed = null
 
 [node name="Timer" type="Timer" parent="State_machine/ChargeAttack"]
 wait_time = 2.0

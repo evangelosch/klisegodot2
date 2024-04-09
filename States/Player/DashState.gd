@@ -18,9 +18,9 @@ func enter():
 	dash_timer.start()
 	var tween = get_tree().create_tween()
 	tween.tween_property(parent, "position", parent.position + parent.velocity * 0.65, 0.3)
-	await tween.finished
+	tween.connect("finished", _on_dash_finished)
 	dash_timer.stop()
+	
 
-
-func process_physics(_delta: float) -> State:
-	return idle_state
+func _on_dash_finished():
+	parent.state_machine.change_state(idle_state)

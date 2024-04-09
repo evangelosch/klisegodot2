@@ -26,7 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://bty37ei1p3rlp" path="res://assets/Individual Sprites/adventurer-attack1-04.png" id="20_sqro3"]
 [ext_resource type="Script" path="res://States/Player/ChargeAttack.gd" id="25_026av"]
 [ext_resource type="Script" path="res://States/Player/Shoot.gd" id="26_ufc4k"]
-[ext_resource type="Script" path="res://Scenes/Component/ChargeHitBox.gd" id="28_o5lqf"]
+[ext_resource type="PackedScene" uid="uid://wteihh2s0jv4" path="res://Scenes/Component/ChargeHitBox.tscn" id="28_u1g06"]
 [ext_resource type="PackedScene" uid="uid://bon4d8w0olstg" path="res://Scenes/Bullet/Bullet.tscn" id="30_uyvuf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qiye7"]
@@ -441,7 +441,8 @@ states/run/node = SubResource("AnimationNodeBlendSpace2D_n0r5i")
 states/run/position = Vector2(557, 251)
 transitions = ["idle", "run", SubResource("AnimationNodeStateMachineTransition_n125a"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_mmll2"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_hfjxs"), "idle", "attack_1", SubResource("AnimationNodeStateMachineTransition_t1jbb"), "attack_1", "idle", SubResource("AnimationNodeStateMachineTransition_xp5m7"), "attack_1", "run", SubResource("AnimationNodeStateMachineTransition_epxfq"), "run", "attack_1", SubResource("AnimationNodeStateMachineTransition_s22jv")]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_jnu1y"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ptbg"]
+radius = 15.7551
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 texture_filter = 1
@@ -457,92 +458,4 @@ sprite_frames = SubResource("SpriteFrames_8ntwr")
 animation = &"attack_2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_enhlr")
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_e1gsx")
-}
-tree_root = SubResource("AnimationNodeStateMachine_m3brj")
-anim_player = NodePath("../AnimationPlayer")
-parameters/attack_1/blend_position = Vector2(0, 0)
-parameters/attack_3/blend_position = Vector2(0, 0)
-parameters/idle/blend_position = Vector2(-0.997546, 0)
-parameters/run/blend_position = Vector2(-0.431991, 0.540342)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_e1gsx")
-}
-
-[node name="State_machine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
-script = ExtResource("3_qgeuu")
-starting_state = NodePath("Idle")
-
-[node name="Run" type="Node" parent="State_machine" node_paths=PackedStringArray("idle_state", "dash_state", "parry_state", "charge_attack_state", "shoot_state")]
-script = ExtResource("4_v6tg0")
-idle_state = NodePath("../Idle")
-dash_state = NodePath("../Dash")
-parry_state = NodePath("../Parry")
-charge_attack_state = NodePath("../ChargeAttack")
-shoot_state = NodePath("../Shoot")
-
-[node name="Idle" type="Node" parent="State_machine" node_paths=PackedStringArray("run_state", "idle_state", "dash_state", "parry_state", "charge_attack_state", "shoot_state")]
-script = ExtResource("5_yxfan")
-run_state = NodePath("../Run")
-idle_state = NodePath(".")
-dash_state = NodePath("../Dash")
-parry_state = NodePath("../Parry")
-charge_attack_state = NodePath("../ChargeAttack")
-shoot_state = NodePath("../Shoot")
-
-[node name="Dash" type="Node" parent="State_machine" node_paths=PackedStringArray("idle_state")]
-script = ExtResource("7_uitaq")
-idle_state = NodePath("../Idle")
-
-[node name="DashTimer" type="Timer" parent="State_machine/Dash"]
-wait_time = 0.1
-
-[node name="Parry" type="Node" parent="State_machine" node_paths=PackedStringArray("run_state", "idle_state", "dash_state")]
-script = ExtResource("8_kos0e")
-run_state = NodePath("../Run")
-idle_state = NodePath("../Idle")
-dash_state = NodePath("../Dash")
-
-[node name="ChargeAttack" type="Node" parent="State_machine" node_paths=PackedStringArray("run_state", "idle_state", "next_state")]
-script = ExtResource("25_026av")
-run_state = NodePath("../Run")
-idle_state = NodePath("../Idle")
-next_state = NodePath("../Idle")
-
-[node name="Timer" type="Timer" parent="State_machine/ChargeAttack"]
-wait_time = 2.0
-
-[node name="Shoot" type="Node" parent="State_machine" node_paths=PackedStringArray("run_state", "idle_state", "next_state")]
-script = ExtResource("26_ufc4k")
-run_state = NodePath("../Run")
-idle_state = NodePath("../Idle")
-next_state = NodePath("../Idle")
-bullet_node = ExtResource("30_uyvuf")
-
-[node name="Timer" type="Timer" parent="State_machine/Shoot"]
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-position = Vector2(0.666667, 0.666667)
-emitting = false
-lifetime = 0.01
-emission_shape = 2
-emission_sphere_radius = 5.0
-spread = 180.0
-gravity = Vector2(2, 0)
-
-[node name="ChargeHitBox" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 4
-script = ExtResource("28_o5lqf")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ChargeHitBox"]
-shape = SubResource("CircleShape2D_jnu1y")
-disabled = true
-
-[connection signal="timeout" from="State_machine/ChargeAttack/Timer" to="State_machine/ChargeAttack" method="_on_timer_timeout"]
+shape = Sub

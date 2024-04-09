@@ -60,8 +60,5 @@ shape = SubResource("RectangleShape2D_sh6dn")
 [node name="Slime" parent="." instance=ExtResource("3_d627e")]
 position = Vector2(611, 73)
 
-[node name="Slime2" parent="." instance=ExtResource("3_d627e")]
-position = Vector2(415, 244)
-
 [node name="Player" parent="." instance=ExtResource("1_sfu5f")]
 position = Vector2(895, 409)

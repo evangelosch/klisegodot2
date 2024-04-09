@@ -108,7 +108,7 @@ follow_state = NodePath("../Follow")
 script = ExtResource("5_555ee")
 shoot_state = NodePath("../Idle")
 idle_state = NodePath("../Idle")
-dash_state = NodePath(".")
+dash_state = NodePath("../Dash")
 
 [node name="Shoot" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("follow_state", "dash_state")]
 script = ExtResource("4_vj4al")
@@ -127,6 +127,5 @@ follow_state = NodePath("../Follow")
 autostart = true
 
 [node name="HurtBoxComponent" parent="." instance=ExtResource("13_qfi38")]
-collision_mask = 0
 
 [connection signal="velocity_computed" from="NavigationAgentComponent" to="." method="_on_navigation_agent_component_velocity_computed"]

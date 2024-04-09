@@ -15,9 +15,11 @@ var input_direction: Vector2
 
 # Node references
 @onready var aura_particles = $"../../CPUParticles2D"
+@onready var charge_hit_box = $"../../ChargeHitBox/CollisionShape2D"
+
 
 func enter() -> void:
-	
+	charge_hit_box.disabled = true
 	aura_particles.modulate = Color(1, 1, 1, 1)
 	aura_particles.scale_amount_min = 1
 	aura_particles.scale_amount_max = 1
@@ -27,7 +29,7 @@ func enter() -> void:
 
 
 func exit() -> void:
-	
+	charge_hit_box.disabled = true
 	aura_particles.emitting = false
 	charging = false
 
@@ -44,11 +46,9 @@ func process_physics(_delta: float) -> State:
 			
 		if charge_time >= charge_threshold:
 			aura_particles.emitting = false
-			return idle_state
 			
 	elif Input.is_action_just_released("charge_attack") and charging:
 		evaluate_charge()
-		return idle_state
 	
 	input_direction = parent.get_input_direction()
 	parent.velocity = input_direction * (move_speed / 2)
@@ -57,12 +57,18 @@ func process_physics(_delta: float) -> State:
 
 
 func charge_attack():
+	charge_hit_box.disabled = false
+	aura_particles.emitting = false
 	# Logic for executing the charged attack
 	var player_mouse_position = parent.get_global_mouse_position()
 	var tween = get_tree().create_tween()
+	tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	tween.tween_property(parent, "position", player_mouse_position, 0.1)
-	await tween.finished
+	tween.connect("finished", _on_charge_attack_finished)
 
+
+func _on_charge_attack_finished():
+	parent.state_machine.change_state(idle_state)
 
 func update_aura_intensity(ratio: float):
 	aura_particles.visible = true
@@ -74,15 +80,14 @@ func update_aura_intensity(ratio: float):
 func evaluate_charge():
 	if charge_time < perfect_start_time:
 		print_debug("Good")
-		charge_attack()
-		
+		return charge_attack()
 	elif charge_time >= perfect_start_time and charge_time <= perfect_end_time:
 		print_debug("Perfect")
-		charge_attack()
+		return charge_attack()
 	# Reset charge time and stop emitting particles after evaluation
 	charge_time = 0.0
 	aura_particles.emitting = false
-
+	return idle_state
 
 func show_perfect_timing_indicator():
 	# Example: Change aura color to indicate perfect timing
