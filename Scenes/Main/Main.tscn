@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://bmsqjfxc4h4x"]
+[gd_scene load_steps=7 format=3 uid="uid://bmsqjfxc4h4x"]
 
 [ext_resource type="PackedScene" uid="uid://bh2g07jdr1y7e" path="res://Scenes/Player/Player.tscn" id="1_sfu5f"]
-[ext_resource type="PackedScene" uid="uid://bqy4l2yuudcl2" path="res://Scenes/Enemy/Slime/Slime.tscn" id="3_d627e"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_dhq2x"]
 vertices = PackedVector2Array(1269, 6, 1268, 693, 21, 695, 9, -5)
@@ -56,9 +55,6 @@ shape = SubResource("RectangleShape2D_b4rv7")
 [node name="DownWallCollision" type="CollisionShape2D" parent="Camera2D/ScreenBoundaries"]
 position = Vector2(0, 369)
 shape = SubResource("RectangleShape2D_sh6dn")
-
-[node name="Slime" parent="." instance=ExtResource("3_d627e")]
-position = Vector2(611, 73)
 
 [node name="Player" parent="." instance=ExtResource("1_sfu5f")]
 position = Vector2(895, 409)

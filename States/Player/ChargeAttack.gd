@@ -46,6 +46,7 @@ func process_physics(_delta: float) -> State:
 			
 		if charge_time >= charge_threshold:
 			aura_particles.emitting = false
+			return idle_state
 			
 	elif Input.is_action_just_released("charge_attack") and charging:
 		evaluate_charge()

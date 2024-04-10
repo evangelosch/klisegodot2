@@ -3,6 +3,7 @@ extends EnemyState
 @export var follow_state: EnemyState
 
 @onready var timer = get_node("Timer")
+var dash_counter: int = 0
 
 func enter():
 	timer.connect("timeout", _on_timer_timeout)
@@ -22,8 +23,8 @@ func _on_timer_timeout():
 func dash():
 	var tween = get_tree().create_tween()
 	tween.tween_property(owner, "position", player.position, 0.3)
-	#return parent.state_machine.change_state(follow_state)
 	tween.connect("finished", _on_dash_completed)
 
 func _on_dash_completed() -> EnemyState:
-		return follow_state
+	return get_parent().change_state(follow_state)
+	
