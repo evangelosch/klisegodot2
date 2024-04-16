@@ -1,7 +1,7 @@
 class_name State
 extends Node
 
-@export var move_speed: float = 400
+@export var move_speed: float = 300
 
 
 ## Hold a reference to the parent so that it can be controlled by the state

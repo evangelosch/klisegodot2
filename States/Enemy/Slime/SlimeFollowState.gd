@@ -24,9 +24,15 @@ func _ready() -> void:
 
 func process_physics(_delta: float) -> EnemyState:
 	
-	
 	var direction_to_player = (player.position - parent.global_position).normalized()
-	ray_cast.target_position = direction_to_player * 30
+	ray_cast.target_position = direction_to_player * 140
+	if ray_cast.is_colliding():
+		var collider = ray_cast.get_collider()
+		if collider.is_in_group("Player"):
+			return shoot_state
+		if not collider.is_in_group("Player"):
+			return self
+
 	
 	#var player_position = parent.global_position.direction_to(player.global_position)
 	make_path_to_player()
