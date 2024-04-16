@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1uduhaut4g8g"]
+
+[ext_resource type="Script" path="res://SteeringEnemy.gd" id="1_8ixe8"]
+[ext_resource type="Texture2D" uid="uid://dt86nowe73cv5" path="res://icon.svg" id="1_32klh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fawil"]
+size = Vector2(134, 135)
+
+[node name="SteeringEnemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_8ixe8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_fawil")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_32klh")

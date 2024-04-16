@@ -2,7 +2,7 @@ extends Area2D
 
 
 var direction: Vector2 = Vector2.RIGHT
-var speed: float = 500
+var speed: float = 750
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	connect("area_entered", on_bullet_area_entered)

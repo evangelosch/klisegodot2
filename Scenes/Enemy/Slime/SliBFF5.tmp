@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://bqy4l2yuudcl2"]
+[gd_scene load_steps=20 format=3 uid="uid://bqy4l2yuudcl2"]
 
 [ext_resource type="Script" path="res://Scenes/Enemy/Slime/Slime.gd" id="1_4xukk"]
 [ext_resource type="Texture2D" uid="uid://ih7ktua64ab7" path="res://Scenes/Enemy/Slime/Art/slime.png" id="1_c7tes"]
 [ext_resource type="PackedScene" uid="uid://der5vh7w075md" path="res://NavigationAgentComponent.tscn" id="2_opyeg"]
 [ext_resource type="Script" path="res://States/Enemy/Slime/SlimeIdleState.gd" id="3_8tnbj"]
+[ext_resource type="Script" path="res://Scenes/Enemy/Slime/RayCast.gd" id="3_ab8wg"]
 [ext_resource type="Script" path="res://States/Enemy/EnemyStateMachine.gd" id="4_2juvd"]
 [ext_resource type="Script" path="res://States/Enemy/Slime/SlimeShootState.gd" id="4_vj4al"]
 [ext_resource type="Script" path="res://States/Enemy/Slime/SlimeFollowState.gd" id="5_555ee"]
@@ -90,6 +91,9 @@ frame_progress = 0.919286
 position = Vector2(0.25, 2)
 shape = SubResource("CircleShape2D_6txts")
 
+[node name="RayCast2D" type="RayCast2D" parent="."]
+script = ExtResource("3_ab8wg")
+
 [node name="EnemyStateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state", "current_state")]
 script = ExtResource("4_2juvd")
 starting_state = NodePath("Idle")
@@ -102,12 +106,9 @@ follow_state = NodePath("../Follow")
 
 [node name="Follow" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("shoot_state", "idle_state", "dash_state")]
 script = ExtResource("5_555ee")
-shoot_state = NodePath("../Shoot")
+shoot_state = NodePath("../Idle")
 idle_state = NodePath("../Idle")
 dash_state = NodePath("../Dash")
-
-[node name="Timer" type="Timer" parent="EnemyStateMachine/Follow"]
-wait_time = 1.5
 
 [node name="Shoot" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("follow_state", "dash_state")]
 script = ExtResource("4_vj4al")
@@ -116,6 +117,7 @@ dash_state = NodePath("../Idle")
 bullet_node = ExtResource("7_v37f2")
 
 [node name="Timer" type="Timer" parent="EnemyStateMachine/Shoot"]
+wait_time = 0.75
 
 [node name="Dash" type="Node" parent="EnemyStateMachine" node_paths=PackedStringArray("follow_state")]
 script = ExtResource("6_xee7k")
@@ -125,8 +127,5 @@ follow_state = NodePath("../Follow")
 autostart = true
 
 [node name="HurtBoxComponent" parent="." instance=ExtResource("13_qfi38")]
-collision_mask = 0
-
-[node name="RayCast2D" type="RayCast2D" parent="."]
 
 [connection signal="velocity_computed" from="NavigationAgentComponent" to="." method="_on_navigation_agent_component_velocity_computed"]
