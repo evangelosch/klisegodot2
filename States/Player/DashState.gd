@@ -17,7 +17,7 @@ func enter():
 	animated_sprite = parent.get_node("PlayerBody").get_node("AnimatedSprite2D")
 	dash_timer.start()
 	var tween = get_tree().create_tween()
-	tween.tween_property(parent, "position", parent.position + parent.velocity * 1, 0.3)
+	tween.tween_property(parent, "position", parent.position + parent.velocity * 0.5, 0.3)
 	tween.connect("finished", _on_dash_finished)
 	dash_timer.stop()
 	

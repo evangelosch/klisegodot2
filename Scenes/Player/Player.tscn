@@ -357,8 +357,8 @@ radius = 12.1655
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 texture_filter = 1
-collision_layer = 0
-collision_mask = 0
+collision_layer = 8
+collision_mask = 8
 script = ExtResource("1_cbt88")
 metadata/_edit_vertical_guides_ = []
 
@@ -367,7 +367,7 @@ metadata/_edit_vertical_guides_ = []
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayerBody"]
 sprite_frames = SubResource("SpriteFrames_0t4ra")
 animation = &"run"
-frame_progress = 0.569913
+frame_progress = 0.116237
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_enhlr")

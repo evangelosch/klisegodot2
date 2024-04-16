@@ -62,7 +62,7 @@ func charge_attack():
 	aura_particles.emitting = false
 	# Logic for executing the charged attack
 	var direction = (parent.get_global_mouse_position() - parent.global_position).normalized()
-	var target_position = parent.global_position + direction * 500
+	var target_position = parent.global_position + direction * 200
 
 	
 	var tween = get_tree().create_tween()

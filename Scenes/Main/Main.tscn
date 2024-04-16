@@ -9,16 +9,16 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-1.33333, -15.6667, 12,
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mj0td"]
-size = Vector2(28, 714)
+size = Vector2(29.5, 359.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nxnds"]
-size = Vector2(30, 709)
+size = Vector2(14.5, 361.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b4rv7"]
-size = Vector2(1277, 36)
+size = Vector2(630, 60)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sh6dn"]
-size = Vector2(1280, 15)
+size = Vector2(642, 15)
 
 [node name="Main" type="Node"]
 
@@ -27,7 +27,6 @@ visible = false
 navigation_polygon = SubResource("NavigationPolygon_dhq2x")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(640, 356)
 process_callback = 0
 limit_left = -5
 limit_top = 0
@@ -37,24 +36,24 @@ limit_smoothed = true
 editor_draw_limits = true
 
 [node name="ScreenBoundaries" type="StaticBody2D" parent="Camera2D"]
-collision_layer = 0
-collision_mask = 0
+collision_layer = 8
+collision_mask = 8
 
 [node name="RightWallCollision" type="CollisionShape2D" parent="Camera2D/ScreenBoundaries"]
-position = Vector2(655, -1)
+position = Vector2(651.25, 179.75)
 shape = SubResource("RectangleShape2D_mj0td")
 
 [node name="LeftWallCollision" type="CollisionShape2D" parent="Camera2D/ScreenBoundaries"]
-position = Vector2(-656, 3.5)
+position = Vector2(-12.25, 179)
 shape = SubResource("RectangleShape2D_nxnds")
 
 [node name="UpWallCollision" type="CollisionShape2D" parent="Camera2D/ScreenBoundaries"]
-position = Vector2(-0.5, -377)
+position = Vector2(317, -32)
 shape = SubResource("RectangleShape2D_b4rv7")
 
 [node name="DownWallCollision" type="CollisionShape2D" parent="Camera2D/ScreenBoundaries"]
-position = Vector2(0, 369)
+position = Vector2(319, 369)
 shape = SubResource("RectangleShape2D_sh6dn")
 
 [node name="Player" parent="." instance=ExtResource("1_sfu5f")]
-position = Vector2(895, 409)
+position = Vector2(392, 188)
