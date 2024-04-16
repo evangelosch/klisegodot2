@@ -53,7 +53,6 @@ animations = [{
 radius = 6.0
 
 [node name="Slime" type="CharacterBody2D" node_paths=PackedStringArray("navigation_agent") groups=["Enemy"]]
-scale = Vector2(3, 3)
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_4xukk")

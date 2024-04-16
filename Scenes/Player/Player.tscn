@@ -133,10 +133,6 @@ length = 0.3
 resource_name = "attack_11"
 loop_mode = 1
 
-[sub_resource type="Animation" id="Animation_ic1kr"]
-length = 0.001
-loop_mode = 1
-
 [sub_resource type="Animation" id="Animation_71k4h"]
 length = 0.2
 loop_mode = 1
@@ -192,6 +188,10 @@ tracks/1/keys = {
 "update": 1,
 "values": ["idle"]
 }
+
+[sub_resource type="Animation" id="Animation_ic1kr"]
+length = 0.001
+loop_mode = 1
 
 [sub_resource type="Animation" id="Animation_m7bnv"]
 length = 1.2
